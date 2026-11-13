@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="B2B.Data/B2B.Data.csproj" />
+  <Project Path="B2B.Tests/B2B.Tests.csproj" />
+  <Project Path="B2B.Web/B2B.Web.csproj" />
+  <Project Path="B2B.WinForms/B2B.WinForms.csproj" />
+</Solution>

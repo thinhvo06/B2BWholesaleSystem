@@ -1,0 +1,121 @@
+@model B2B.Web.Models.CheckoutViewModel
+@{
+    ViewData["Title"] = "Xác Nhận Đặt Hàng Bán Buôn";
+}
+
+<div class="mb-4">
+    <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary btn-sm mb-2">
+        <i class="bi bi-arrow-left me-1"></i> Quay lại giỏ hàng
+    </a>
+    <h3 class="fw-bold text-primary">
+        <i class="bi bi-clipboard2-check me-2"></i>Xác Nhận Đơn Hàng Bán Buôn (Master-Detail Order)
+    </h3>
+    <p class="text-muted small">Vui lòng kiểm tra lại thông tin đại lý và danh sách mặt hàng trước khi xác nhận tạo giao dịch kho.</p>
+</div>
+
+<form asp-controller="Order" asp-action="PlaceOrder" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="row g-4">
+        <!-- Agent Delivery Information -->
+        <div class="col-lg-5">
+            <div class="card card-custom p-4 shadow-sm mb-3">
+                <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                    <i class="bi bi-building me-2 text-primary"></i>Thông Tin Đại Lý Nhận Hàng
+                </h5>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">MÃ & TÊN ĐẠI LÝ</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-hash"></i></span>
+                        <input type="text" class="form-control" value="[#@Model.AgentID] @Model.AgentName" readonly />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">ĐỊA CHỈ KHO GIAO HÀNG</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-geo-alt"></i></span>
+                        <input type="text" class="form-control" value="@Model.Address" readonly />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">SỐ ĐIỆN THOẠI LIÊN HỆ</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-telephone"></i></span>
+                        <input type="text" class="form-control" value="@Model.Phone" readonly />
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="Notes" class="form-label text-muted small fw-bold">GHI CHÚ VẬN CHUYỂN</label>
+                    <textarea asp-for="Notes" class="form-control" rows="3" placeholder="Yêu cầu về giờ giao hàng, đóng gói..."></textarea>
+                </div>
+            </div>
+
+            <!-- Transaction Info Box -->
+            <div class="alert alert-warning border-warning shadow-sm">
+                <h6 class="fw-bold text-warning-emphasis mb-1">
+                    <i class="bi bi-cpu-fill me-1"></i> Cơ chế Database Transaction:
+                </h6>
+                <p class="small mb-0 text-secondary">
+                    Khi bạn bấm <strong>"Xác Nhận Đặt Hàng"</strong>, hệ thống sẽ thực thi một giao dịch CSDL nguyên tử:
+                    tự động tạo bản ghi <code>Order</code>, chèn <code>OrderDetail</code>, và khấu trừ số lượng kho <code>StockQuantity</code> của từng mặt hàng. Nếu bất kỳ mặt hàng nào bị hết hàng trong lúc đặt, đơn hàng sẽ được <strong>Rollback</strong> an toàn!
+                </p>
+            </div>
+        </div>
+
+        <!-- Order Items Breakdown -->
+        <div class="col-lg-7">
+            <div class="card card-custom p-4 shadow-sm">
+                <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                    <i class="bi bi-box-seam me-2 text-primary"></i>Danh Sách Mặt Hàng Đặt Buôn
+                </h5>
+
+                <div class="table-responsive">
+                    <table class="table table-sm align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th class="text-end">Đơn giá</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-end">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Cart.Items)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="fw-bold">@item.ItemName</div>
+                                        <span class="text-muted small">Size: @item.Size</span>
+                                    </td>
+                                    <td class="text-end">@item.Price.ToString("#,##0") ₫</td>
+                                    <td class="text-center fw-bold">@item.Quantity</td>
+                                    <td class="text-end fw-bold text-primary">@item.TotalAmount.ToString("#,##0") ₫</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="border-top">
+                            <tr>
+                                <td colspan="2" class="fw-bold pt-3">Tổng cộng:</td>
+                                <td class="text-center fw-bold pt-3 text-secondary">@Model.Cart.TotalQuantity sp</td>
+                                <td class="text-end fw-bold text-danger fs-5 pt-3">@Model.Cart.TotalAmount.ToString("#,##0") ₫</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="mt-4 pt-3 border-top d-flex gap-2">
+                    <button type="submit" class="btn btn-success btn-lg flex-grow-1 fw-bold py-2 shadow">
+                        <i class="bi bi-send-check me-2"></i> Xác Nhận Đặt Hàng (Commit Transaction)
+                    </button>
+                    <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary btn-lg px-3">
+                        Hủy
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

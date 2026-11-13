@@ -1,0 +1,141 @@
+@model IEnumerable<B2B.Data.Entities.Item>
+@{
+    ViewData["Title"] = "Danh Mục Mặt Hàng Bán Buôn";
+    var sizes = ViewBag.Sizes as List<string> ?? new List<string>();
+    var currentSearch = ViewBag.CurrentSearch as string;
+    var currentSize = ViewBag.CurrentSize as string;
+    var currentStockStatus = ViewBag.CurrentStockStatus as string;
+}
+
+<!-- Hero Wholesale Banner -->
+<div class="p-4 mb-4 bg-primary text-white rounded-3 shadow-sm d-flex flex-wrap justify-content-between align-items-center">
+    <div>
+        <h2 class="fw-bold mb-1"><i class="bi bi-shop me-2"></i>Cổng Đặt Hàng Bán Buôn (B2B Catalog)</h2>
+        <p class="mb-0 text-white-50">Xem giá bán buôn, kiểm tra tồn kho thời gian thực và đặt hàng số lượng lớn (Bulk Order).</p>
+    </div>
+    <div class="mt-2 mt-md-0">
+        <a asp-controller="Cart" asp-action="Index" class="btn btn-warning fw-bold px-3 py-2 text-dark">
+            <i class="bi bi-cart-check me-1"></i> Xem Giỏ Hàng & Thanh Toán
+        </a>
+    </div>
+</div>
+
+<!-- Search & Filter Controls -->
+<div class="card card-custom p-3 mb-4">
+    <form method="get" asp-controller="Catalog" asp-action="Index" class="row g-2 align-items-center">
+        <div class="col-md-5">
+            <div class="input-group">
+                <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                <input type="text" name="search" class="form-control border-start-0" placeholder="Tìm theo tên mặt hàng..." value="@currentSearch" />
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <select name="sizeFilter" class="form-select">
+                <option value="All">-- Tất cả quy cách / Size --</option>
+                @foreach (var s in sizes)
+                {
+                    <option value="@s" selected="@(currentSize == s)">@s</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <select name="stockStatus" class="form-select">
+                <option value="">-- Tồn kho --</option>
+                <option value="in_stock" selected="@(currentStockStatus == "in_stock")">Còn hàng</option>
+                <option value="low_stock" selected="@(currentStockStatus == "low_stock")">Sắp hết hàng (≤ 10)</option>
+                <option value="out_of_stock" selected="@(currentStockStatus == "out_of_stock")">Hết hàng</option>
+            </select>
+        </div>
+
+        <div class="col-md-2 d-flex gap-2">
+            <button type="submit" class="btn btn-primary w-100 fw-semibold">
+                <i class="bi bi-filter me-1"></i> Lọc
+            </button>
+            <a asp-controller="Catalog" asp-action="Index" class="btn btn-outline-secondary" title="Xóa bộ lọc">
+                <i class="bi bi-arrow-clockwise"></i>
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Product Cards Grid -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @if (!Model.Any())
+    {
+        <div class="col-12 text-center py-5">
+            <div class="text-muted fs-1 mb-2"><i class="bi bi-inbox"></i></div>
+            <h5 class="text-muted">Không tìm thấy mặt hàng nào phù hợp với bộ lọc tìm kiếm.</h5>
+            <a asp-controller="Catalog" asp-action="Index" class="btn btn-sm btn-outline-primary mt-2">Xem tất cả sản phẩm</a>
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #@item.ItemID</span>
+                            @if (item.StockQuantity > 10)
+                            {
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: @item.StockQuantity
+                                </span>
+                            }
+                            else if (item.StockQuantity > 0)
+                            {
+                                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">
+                                    <i class="bi bi-exclamation-triangle me-1"></i>Sắp hết: @item.StockQuantity
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                                    <i class="bi bi-x-circle me-1"></i>Hết hàng
+                                </span>
+                            }
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">@item.ItemName</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>@(string.IsNullOrEmpty(item.Size) ? "Tiêu chuẩn" : item.Size)</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">@item.Price.ToString("#,##0") ₫</span>
+                            </div>
+
+                            @if (item.StockQuantity > 0)
+                            {
+                                <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-flex gap-2">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="itemId" value="@item.ItemID" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="@item.StockQuantity" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <button class="btn btn-secondary btn-sm w-100" disabled>
+                                    <i class="bi bi-slash-circle me-1"></i> Tạm hết hàng
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

@@ -1,0 +1,93 @@
+@model B2B.Data.Entities.Order
+@{
+    ViewData["Title"] = "Đặt Hàng Thành Công";
+    var totalAmount = Model.OrderDetails.Sum(od => od.Quantity * od.UnitAmount);
+    var totalQuantity = Model.OrderDetails.Sum(od => od.Quantity);
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card card-custom p-4 p-md-5 shadow-sm text-center mb-4">
+            <div class="text-success mb-3">
+                <i class="bi bi-patch-check-fill fs-1" style="font-size: 3.5rem !important;"></i>
+            </div>
+            
+            <h2 class="fw-bold text-success mb-1">Giao Dịch Đặt Hàng Bán Buôn Thành Công!</h2>
+            <p class="text-muted">
+                Đơn hàng của bạn đã được ghi nhận vào hệ thống CSDL và đã hoàn tất khấu trừ tồn kho an toàn.
+            </p>
+
+            <div class="bg-light p-3 rounded my-3 text-start d-flex flex-wrap justify-content-between align-items-center">
+                <div>
+                    <span class="text-muted small d-block">MÃ ĐƠN HÀNG:</span>
+                    <span class="fs-4 fw-bold text-primary">#@Model.OrderID</span>
+                </div>
+                <div>
+                    <span class="text-muted small d-block">NGÀY ĐẶT:</span>
+                    <span class="fw-semibold">@Model.OrderDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss")</span>
+                </div>
+                <div>
+                    <span class="text-muted small d-block">TRẠNG THÁI:</span>
+                    <span class="badge bg-warning text-dark px-3 py-2 fs-6">@Model.OrderStatus</span>
+                </div>
+                <div>
+                    <span class="text-muted small d-block">ĐẠI LÝ:</span>
+                    <span class="fw-semibold">@Model.Agent?.AgentName</span>
+                </div>
+            </div>
+
+            <!-- Items Table -->
+            <div class="text-start mt-4">
+                <h6 class="fw-bold text-secondary text-uppercase small mb-2">Chi Tiết Mặt Hàng Trong Đơn (#@Model.OrderID):</h6>
+                <div class="table-responsive border rounded">
+                    <table class="table table-sm align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Tên sản phẩm</th>
+                                <th class="text-center">Quy cách / Size</th>
+                                <th class="text-end">Đơn giá</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-end">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int stt = 1; }
+                            @foreach (var detail in Model.OrderDetails)
+                            {
+                                <tr>
+                                    <td>@(stt++)</td>
+                                    <td class="fw-semibold">@detail.Item?.ItemName</td>
+                                    <td class="text-center text-muted">@detail.Item?.Size</td>
+                                    <td class="text-end">@detail.UnitAmount.ToString("#,##0") ₫</td>
+                                    <td class="text-center fw-bold">@detail.Quantity</td>
+                                    <td class="text-end fw-bold text-primary">
+                                        @((detail.Quantity * detail.UnitAmount).ToString("#,##0")) ₫
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="table-light">
+                            <tr>
+                                <th colspan="4" class="text-end">Tổng Cộng:</th>
+                                <th class="text-center text-secondary">@totalQuantity sp</th>
+                                <th class="text-end text-danger fs-6">@totalAmount.ToString("#,##0") ₫</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="alert alert-success mt-4 p-3 text-start small">
+                <i class="bi bi-info-circle-fill me-1"></i> <strong>Xác nhận Transaction:</strong>
+                Đơn hàng trên đã được đồng bộ trực tiếp tới cơ sở dữ liệu dùng chung. Nhân viên kho trên ứng dụng <strong>WinForms Back-Office (Thành viên 2)</strong> hiện có thể nhìn thấy đơn hàng này để chuyển trạng thái sang <em>'Shipped'</em> và in phiếu <em>Shipping Manifest</em>.
+            </div>
+
+            <div class="mt-4 d-flex justify-content-center gap-3">
+                <a asp-controller="Catalog" asp-action="Index" class="btn btn-primary px-4 fw-semibold">
+                    <i class="bi bi-cart-plus me-1"></i> Tiếp Tục Đặt Thêm Hàng
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

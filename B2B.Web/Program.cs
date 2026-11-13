@@ -20,7 +20,12 @@ var connectionString = builder.Configuration.GetConnectionString("B2BConnection"
 bool isSqlServerAvailable = false;
 try
 {
-    using var testConn = new Microsoft.Data.SqlClient.SqlConnection(connectionString);
+    // Fast 2-second timeout probe to check if SQL Server instance is reachable
+    var testBuilder = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder(connectionString)
+    {
+        ConnectTimeout = 2
+    };
+    using var testConn = new Microsoft.Data.SqlClient.SqlConnection(testBuilder.ConnectionString);
     testConn.Open();
     isSqlServerAvailable = true;
 }

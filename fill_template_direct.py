@@ -289,8 +289,17 @@ for i, p in enumerate(doc.paragraphs):
             "• Responsive Data Tables: Cart and order tables leverage `.table-responsive` to guarantee no horizontal overflow on mobile screens."
         )
     elif txt == "[ Screenshots: desktop and mobile views ]":
-        p.text = "Responsive UI Evidence: Desktop layout (1920x1080) and Mobile view (375x812) showing adaptive navigation, fluid cards, and responsive order tables."
-        p.runs[0].font.italic = True
+        p.text = "Responsive UI Layout Verification (Desktop 1280px vs Mobile 375px Viewports):"
+        p_desk = os.path.join(sc_dir, 'responsive_desktop.png')
+        p_mob = os.path.join(sc_dir, 'responsive_mobile.png')
+        if os.path.exists(p_desk):
+            r = p.add_run("\nFigure 5.6: Desktop View (1280px) - 3-Column Responsive Grid, Header Navigation & Live Cart Badge\n")
+            r.bold = True
+            r.add_picture(p_desk, width=Inches(5.8))
+        if os.path.exists(p_mob):
+            r = p.add_run("\n\nFigure 5.7: Mobile Responsive View (375px) - Collapsed Hamburger Menu, Single-Column Cards & Adaptive Layout\n")
+            r.bold = True
+            r.add_picture(p_mob, width=Inches(3.4))
     elif txt == "[ Screenshot: Test Explorer showing all tests passed ]":
         p.text = "Unit Test Suite Execution Results (Visual Studio Test Explorer / dotnet test CLI):"
         test_img = os.path.join(sc_dir, 'unit_test_results.png')

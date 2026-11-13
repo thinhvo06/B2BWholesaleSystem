@@ -90,11 +90,11 @@ for i, p in enumerate(doc.paragraphs):
         p.runs[0].bold = True
         p.runs[0].font.color.rgb = RGBColor(0x1E, 0x3A, 0x8A)
     elif "1. [StudentID1]" in txt:
-        p.text = "1. [MSSV 1] : [Họ và tên Sinh viên 1 - Trưởng nhóm] (Fullstack Web & Shared Core DB - 34%)"
+        p.text = "1. [MSSV 1] : Võ Nguyễn Phúc Thịnh (Trưởng nhóm / Fullstack Web & Shared Core DB - 34%)"
     elif "2. [StudentID2]" in txt:
-        p.text = "2. [MSSV 2] : [Họ và tên Sinh viên 2] (Desktop WinForms Back-Office Specialist - 33%)"
+        p.text = "2. [MSSV 2] : Ôn Gia Khiêm (Desktop WinForms Back-Office Specialist - 33%)"
     elif "3. [StudentID3]" in txt:
-        p.text = "3. [MSSV 3] : [Họ và tên Sinh viên 3] (QA, Unit Testing & Documentation Specialist - 33%)"
+        p.text = "3. [MSSV 3] : Nguyễn Nhật Huy (QA, Unit Testing & Documentation Specialist - 33%)"
     elif "4. [StudentID4]" in txt or "5. [StudentID5]" in txt:
         paragraphs_to_remove.append(p)
     elif txt == "[System overview]":
@@ -382,9 +382,9 @@ for idx, row in enumerate(labor_data):
 # Table 3: 1.3 Team Members
 t3 = doc.tables[3]
 team_data = [
-    ("1", "[Họ và tên Sinh viên 1]", "[MSSV 1]", "Trưởng nhóm / Fullstack Web & Shared Core DB (34%)"),
-    ("2", "[Họ và tên Sinh viên 2]", "[MSSV 2]", "Desktop WinForms Back-Office Specialist (33%)"),
-    ("3", "[Họ và tên Sinh viên 3]", "[MSSV 3]", "QA, Unit Testing & Documentation Specialist (33%)")
+    ("1", "Võ Nguyễn Phúc Thịnh", "[MSSV 1]", "Trưởng nhóm / Fullstack Web & Shared Core DB (34%)"),
+    ("2", "Ôn Gia Khiêm", "[MSSV 2]", "Desktop WinForms Back-Office Specialist (33%)"),
+    ("3", "Nguyễn Nhật Huy", "[MSSV 3]", "QA, Unit Testing & Documentation Specialist (33%)")
 ]
 for idx, row in enumerate(team_data):
     r_idx = idx + 1
@@ -521,9 +521,9 @@ remove_row(t14, 4)
 # Table 15: 9. Contribution of Each Member
 t15 = doc.tables[15]
 contrib_data = [
-    ("Member 1", "[MSSV 1]", "Task 2 (Shared DB), Task 3.1 (Login), Task 3.2 (Transaction Order), Task 3.4 (Responsive UI)", "34%"),
-    ("Member 2", "[MSSV 2]", "Task 1.1 (Admin Login), Task 1.2 (CRUD), Task 1.3 (Manifest Report), Task 1.4 (Dashboard)", "33%"),
-    ("Member 3", "[MSSV 3]", "Task 2 (Seed Data & Integrity), Task 3.3 (Web Invoice), Task 5.1 (Unit Tests), Task 6 (Report)", "33%")
+    ("Võ Nguyễn Phúc Thịnh", "[MSSV 1]", "Task 2 (Shared DB), Task 3.1 (Login), Task 3.2 (Transaction Order), Task 3.4 (Responsive UI)", "34%"),
+    ("Ôn Gia Khiêm", "[MSSV 2]", "Task 1.1 (Admin Login), Task 1.2 (CRUD), Task 1.3 (Manifest Report), Task 1.4 (Dashboard)", "33%"),
+    ("Nguyễn Nhật Huy", "[MSSV 3]", "Task 2 (Seed Data & Integrity), Task 3.3 (Web Invoice), Task 5.1 (Unit Tests), Task 6 (Report)", "33%")
 ]
 for idx, row in enumerate(contrib_data):
     r_idx = idx + 1

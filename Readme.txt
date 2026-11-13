@@ -14,9 +14,9 @@ Instructor: Ky-Trung Pham
 --------------------------------------------------------------------------------
 No. | Student ID | Full Name              | Assigned Role      | % Contribution
 --------------------------------------------------------------------------------
-1   | [MSSV 1]   | [Họ và tên SV 1]       | Leader / Member 1  | 34%
-2   | [MSSV 2]   | [Họ và tên SV 2]       | Member 2           | 33%
-3   | [MSSV 3]   | [Họ và tên SV 3]       | Member 3           | 33%
+1   | [MSSV 1]   | Võ Nguyễn Phúc Thịnh   | Leader / Member 1  | 34%
+2   | [MSSV 2]   | Ôn Gia Khiêm           | Member 2           | 33%
+3   | [MSSV 3]   | Nguyễn Nhật Huy        | Member 3           | 33%
 --------------------------------------------------------------------------------
 TOTAL: 100%
 

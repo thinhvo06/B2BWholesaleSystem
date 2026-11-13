@@ -87,8 +87,13 @@ public class OrderController : Controller
             return RedirectToAction("Index", "Catalog");
         }
 
-        // START DATABASE TRANSACTION
-        using var transaction = await _context.Database.BeginTransactionAsync();
+        // START DATABASE TRANSACTION (when relational provider like SQL Server is active)
+        Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction? transaction = null;
+        if (_context.Database.IsRelational())
+        {
+            transaction = await _context.Database.BeginTransactionAsync();
+        }
+
         try
         {
             _logger.LogInformation("Bắt đầu Database Transaction đặt hàng cho AgentID: {AgentID}...", agentId);
@@ -150,7 +155,10 @@ public class OrderController : Controller
             await _context.SaveChangesAsync();
 
             // Step 4: Commit the Transaction atomically
-            await transaction.CommitAsync();
+            if (transaction != null)
+            {
+                await transaction.CommitAsync();
+            }
 
             _logger.LogInformation("Database Transaction thành công! Đơn hàng #{OrderID} đã được tạo với {Count} món chi tiết.", order.OrderID, cart.Items.Count);
 
@@ -163,7 +171,10 @@ public class OrderController : Controller
         catch (Exception ex)
         {
             // Transaction Rollback on any failure
-            await transaction.RollbackAsync();
+            if (transaction != null)
+            {
+                await transaction.RollbackAsync();
+            }
             _logger.LogError(ex, "Database Transaction thất bại! Đã Rollback toàn bộ dữ liệu đơn hàng.");
 
             TempData["Error"] = ex.Message;

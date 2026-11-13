@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&#x110;&#x1EB7;t H&#xE0;ng Th&#xE0;nh C&#xF4;ng - B2B Wholesale Portal</title>
+    
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --b2b-primary: #1a365d;
+            --b2b-secondary: #2b6cb0;
+            --b2b-accent: #3182ce;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-b2b {
+            background-color: var(--b2b-primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #ffffff !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #e2e8f0 !important;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ffffff !important;
+        }
+
+        .cart-badge {
+            background-color: #e53e3e;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 3px 6px;
+            border-radius: 10px;
+            vertical-align: top;
+            margin-left: 2px;
+        }
+
+        .footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            margin-top: auto;
+            padding: 15px 0;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .card-custom {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: #ffffff;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        }
+
+        .price-tag {
+            color: #c53030;
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav b-owwc7i4v3z class="navbar navbar-expand-lg navbar-dark navbar-b2b sticky-top">
+        <div b-owwc7i4v3z class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <i b-owwc7i4v3z class="bi bi-boxes fs-4 me-2 text-warning"></i>
+                <span b-owwc7i4v3z>B2B Wholesale Portal</span>
+            </a>
+
+            <button b-owwc7i4v3z class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span b-owwc7i4v3z class="navbar-toggler-icon"></span>
+            </button>
+
+            <div b-owwc7i4v3z class="collapse navbar-collapse" id="navbarContent">
+                <ul b-owwc7i4v3z class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li b-owwc7i4v3z class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i b-owwc7i4v3z class="bi bi-grid me-1"></i> Danh Mục Mặt Hàng
+                        </a>
+                    </li>
+                        <li b-owwc7i4v3z class="nav-item">
+                            <a class="nav-link" href="/Cart">
+                                <i b-owwc7i4v3z class="bi bi-cart3 me-1"></i> Giỏ Hàng Đặt Buôn
+                            </a>
+                        </li>
+                </ul>
+
+                <ul b-owwc7i4v3z class="navbar-nav ms-auto align-items-center">
+                        <li b-owwc7i4v3z class="nav-item dropdown">
+                            <a b-owwc7i4v3z class="nav-link dropdown-toggle d-flex align-items-center text-white" href="#" id="agentDropdown" role="button" data-bs-toggle="dropdown">
+                                <i b-owwc7i4v3z class="bi bi-person-badge fs-5 me-2 text-info"></i>
+                                <div b-owwc7i4v3z>
+                                    <span b-owwc7i4v3z class="fw-bold">&#x110;&#x1EA1;i l&#xFD; B&#xE1;n bu&#xF4;n Mi&#x1EC1;n B&#x1EAF;c - Ph&#xFA;c Anh Tech</span>
+                                    <span b-owwc7i4v3z class="badge bg-success ms-1">Đại lý</span>
+                                </div>
+                            </a>
+                            <ul b-owwc7i4v3z class="dropdown-menu dropdown-menu-end shadow">
+                                <li b-owwc7i4v3z><h6 b-owwc7i4v3z class="dropdown-header">Tài khoản: agent_hanoi</h6></li>
+                                <li b-owwc7i4v3z>
+                                    <a class="dropdown-item" href="/Cart">
+                                        <i b-owwc7i4v3z class="bi bi-cart me-2"></i>Xem giỏ hàng (0 món)
+                                    </a>
+                                </li>
+                                <li b-owwc7i4v3z><hr b-owwc7i4v3z class="dropdown-divider"></li>
+                                <li b-owwc7i4v3z>
+                                    <form method="post" class="d-inline" action="/Account/Logout">
+                                        
+                                        <button b-owwc7i4v3z type="submit" class="dropdown-item text-danger">
+                                            <i b-owwc7i4v3z class="bi bi-box-arrow-right me-2"></i>Đăng xuất
+                                        </button>
+                                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-icI8fRWmRAszGWPsDJsrAWIZ-S93sh8IKKp0xBhVHA5FMe0-5o5_fRdG_YBtQDozmV0TqTsNW89ahmpxm2Ic67kdv1aJwaBpqfbjoT0pFisnP72_INVVeV2XVs8lxEuFSfpS-9RSYlE4XQKQgiBzTLa0MT7BGy5TOQ9qHKXcIaHhw" /></form>
+                                </li>
+                            </ul>
+                        </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Global Toast / Alert Notifications -->
+    <div b-owwc7i4v3z class="container mt-3">
+            <div b-owwc7i4v3z class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                <i b-owwc7i4v3z class="bi bi-check-circle-fill me-2 fs-5"></i>
+                <strong b-owwc7i4v3z>Thành công:</strong> &#x110;&#x1EB7;t h&#xE0;ng b&#xE1;n bu&#xF4;n th&#xE0;nh c&#xF4;ng! M&#xE3; &#x111;&#x1A1;n h&#xE0;ng c&#x1EE7;a b&#x1EA1;n l&#xE0; #16.
+                <button b-owwc7i4v3z type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+    </div>
+
+    <!-- Main Content Body -->
+    <main b-owwc7i4v3z class="container my-4">
+        
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card card-custom p-4 p-md-5 shadow-sm text-center mb-4">
+            <div class="text-success mb-3">
+                <i class="bi bi-patch-check-fill fs-1" style="font-size: 3.5rem !important;"></i>
+            </div>
+            
+            <h2 class="fw-bold text-success mb-1">Giao Dịch Đặt Hàng Bán Buôn Thành Công!</h2>
+            <p class="text-muted">
+                Đơn hàng của bạn đã được ghi nhận vào hệ thống CSDL và đã hoàn tất khấu trừ tồn kho an toàn.
+            </p>
+
+            <div class="bg-light p-3 rounded my-3 text-start d-flex flex-wrap justify-content-between align-items-center">
+                <div>
+                    <span class="text-muted small d-block">MÃ ĐƠN HÀNG:</span>
+                    <span class="fs-4 fw-bold text-primary">#16</span>
+                </div>
+                <div>
+                    <span class="text-muted small d-block">NGÀY ĐẶT:</span>
+                    <span class="fw-semibold">13/11/2026 09:34:20</span>
+                </div>
+                <div>
+                    <span class="text-muted small d-block">TRẠNG THÁI:</span>
+                    <span class="badge bg-warning text-dark px-3 py-2 fs-6">Pending</span>
+                </div>
+                <div>
+                    <span class="text-muted small d-block">ĐẠI LÝ:</span>
+                    <span class="fw-semibold">&#x110;&#x1EA1;i l&#xFD; B&#xE1;n bu&#xF4;n Mi&#x1EC1;n B&#x1EAF;c - Ph&#xFA;c Anh Tech</span>
+                </div>
+            </div>
+
+            <!-- Items Table -->
+            <div class="text-start mt-4">
+                <h6 class="fw-bold text-secondary text-uppercase small mb-2">Chi Tiết Mặt Hàng Trong Đơn (#16):</h6>
+                <div class="table-responsive border rounded">
+                    <table class="table table-sm align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Tên sản phẩm</th>
+                                <th class="text-center">Quy cách / Size</th>
+                                <th class="text-end">Đơn giá</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-end">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td class="fw-semibold">M&#xE0;n h&#xEC;nh Dell UltraSharp 27 inch 4K</td>
+                                    <td class="text-center text-muted">27 inch</td>
+                                    <td class="text-end">11,500,000 ₫</td>
+                                    <td class="text-center fw-bold">2</td>
+                                    <td class="text-end fw-bold text-primary">
+                                        23,000,000 ₫
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td class="fw-semibold">B&#xE0;n ph&#xED;m c&#x1A1; kh&#xF4;ng d&#xE2;y Logitech MX Mechanical</td>
+                                    <td class="text-center text-muted">Fullsize</td>
+                                    <td class="text-end">3,450,000 ₫</td>
+                                    <td class="text-center fw-bold">3</td>
+                                    <td class="text-end fw-bold text-primary">
+                                        10,350,000 ₫
+                                    </td>
+                                </tr>
+                        </tbody>
+                        <tfoot class="table-light">
+                            <tr>
+                                <th colspan="4" class="text-end">Tổng Cộng:</th>
+                                <th class="text-center text-secondary">5 sp</th>
+                                <th class="text-end text-danger fs-6">33,350,000 ₫</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="alert alert-success mt-4 p-3 text-start small">
+                <i class="bi bi-info-circle-fill me-1"></i> <strong>Xác nhận Transaction:</strong>
+                Đơn hàng trên đã được đồng bộ trực tiếp tới cơ sở dữ liệu dùng chung. Nhân viên kho trên ứng dụng <strong>WinForms Back-Office (Thành viên 2)</strong> hiện có thể nhìn thấy đơn hàng này để chuyển trạng thái sang <em>'Shipped'</em> và in phiếu <em>Shipping Manifest</em>.
+            </div>
+
+            <div class="mt-4 d-flex justify-content-center gap-3">
+                <a class="btn btn-primary px-4 fw-semibold" href="/">
+                    <i class="bi bi-cart-plus me-1"></i> Tiếp Tục Đặt Thêm Hàng
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer b-owwc7i4v3z class="footer">
+        <div b-owwc7i4v3z class="container d-flex flex-wrap justify-content-between align-items-center">
+            <div b-owwc7i4v3z>
+                <strong b-owwc7i4v3z>B2B Wholesale Order Management System</strong> &bull; FIT - Đại học Tôn Đức Thắng (TDTU)
+            </div>
+            <div b-owwc7i4v3z>
+                <span b-owwc7i4v3z>Lab Assignment 2 &bull; Sem 1_2627</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

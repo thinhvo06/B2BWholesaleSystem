@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh M&#x1EE5;c M&#x1EB7;t H&#xE0;ng B&#xE1;n Bu&#xF4;n - B2B Wholesale Portal</title>
+    
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --b2b-primary: #1a365d;
+            --b2b-secondary: #2b6cb0;
+            --b2b-accent: #3182ce;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-b2b {
+            background-color: var(--b2b-primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #ffffff !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #e2e8f0 !important;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ffffff !important;
+        }
+
+        .cart-badge {
+            background-color: #e53e3e;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 3px 6px;
+            border-radius: 10px;
+            vertical-align: top;
+            margin-left: 2px;
+        }
+
+        .footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            margin-top: auto;
+            padding: 15px 0;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .card-custom {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: #ffffff;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        }
+
+        .price-tag {
+            color: #c53030;
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav b-owwc7i4v3z class="navbar navbar-expand-lg navbar-dark navbar-b2b sticky-top">
+        <div b-owwc7i4v3z class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <i b-owwc7i4v3z class="bi bi-boxes fs-4 me-2 text-warning"></i>
+                <span b-owwc7i4v3z>B2B Wholesale Portal</span>
+            </a>
+
+            <button b-owwc7i4v3z class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span b-owwc7i4v3z class="navbar-toggler-icon"></span>
+            </button>
+
+            <div b-owwc7i4v3z class="collapse navbar-collapse" id="navbarContent">
+                <ul b-owwc7i4v3z class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li b-owwc7i4v3z class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i b-owwc7i4v3z class="bi bi-grid me-1"></i> Danh Mục Mặt Hàng
+                        </a>
+                    </li>
+                        <li b-owwc7i4v3z class="nav-item">
+                            <a class="nav-link" href="/Cart">
+                                <i b-owwc7i4v3z class="bi bi-cart3 me-1"></i> Giỏ Hàng Đặt Buôn
+                            </a>
+                        </li>
+                </ul>
+
+                <ul b-owwc7i4v3z class="navbar-nav ms-auto align-items-center">
+                        <li b-owwc7i4v3z class="nav-item dropdown">
+                            <a b-owwc7i4v3z class="nav-link dropdown-toggle d-flex align-items-center text-white" href="#" id="agentDropdown" role="button" data-bs-toggle="dropdown">
+                                <i b-owwc7i4v3z class="bi bi-person-badge fs-5 me-2 text-info"></i>
+                                <div b-owwc7i4v3z>
+                                    <span b-owwc7i4v3z class="fw-bold">&#x110;&#x1EA1;i l&#xFD; B&#xE1;n bu&#xF4;n Mi&#x1EC1;n B&#x1EAF;c - Ph&#xFA;c Anh Tech</span>
+                                    <span b-owwc7i4v3z class="badge bg-success ms-1">Đại lý</span>
+                                </div>
+                            </a>
+                            <ul b-owwc7i4v3z class="dropdown-menu dropdown-menu-end shadow">
+                                <li b-owwc7i4v3z><h6 b-owwc7i4v3z class="dropdown-header">Tài khoản: agent_hanoi</h6></li>
+                                <li b-owwc7i4v3z>
+                                    <a class="dropdown-item" href="/Cart">
+                                        <i b-owwc7i4v3z class="bi bi-cart me-2"></i>Xem giỏ hàng (0 món)
+                                    </a>
+                                </li>
+                                <li b-owwc7i4v3z><hr b-owwc7i4v3z class="dropdown-divider"></li>
+                                <li b-owwc7i4v3z>
+                                    <form method="post" class="d-inline" action="/Account/Logout">
+                                        
+                                        <button b-owwc7i4v3z type="submit" class="dropdown-item text-danger">
+                                            <i b-owwc7i4v3z class="bi bi-box-arrow-right me-2"></i>Đăng xuất
+                                        </button>
+                                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                                </li>
+                            </ul>
+                        </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Global Toast / Alert Notifications -->
+    <div b-owwc7i4v3z class="container mt-3">
+    </div>
+
+    <!-- Main Content Body -->
+    <main b-owwc7i4v3z class="container my-4">
+        
+<!-- Hero Wholesale Banner -->
+<div class="p-4 mb-4 bg-primary text-white rounded-3 shadow-sm d-flex flex-wrap justify-content-between align-items-center">
+    <div>
+        <h2 class="fw-bold mb-1"><i class="bi bi-shop me-2"></i>Cổng Đặt Hàng Bán Buôn (B2B Catalog)</h2>
+        <p class="mb-0 text-white-50">Xem giá bán buôn, kiểm tra tồn kho thời gian thực và đặt hàng số lượng lớn (Bulk Order).</p>
+    </div>
+    <div class="mt-2 mt-md-0">
+        <a class="btn btn-warning fw-bold px-3 py-2 text-dark" href="/Cart">
+            <i class="bi bi-cart-check me-1"></i> Xem Giỏ Hàng & Thanh Toán
+        </a>
+    </div>
+</div>
+
+<!-- Search & Filter Controls -->
+<div class="card card-custom p-3 mb-4">
+    <form method="get" class="row g-2 align-items-center" action="/">
+        <div class="col-md-5">
+            <div class="input-group">
+                <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                <input type="text" name="search" class="form-control border-start-0" placeholder="Tìm theo tên mặt hàng..." />
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <select name="sizeFilter" class="form-select">
+                <option value="All">-- Tất cả quy cách / Size --</option>
+                    <option value="27 inch">27 inch</option>
+                    <option value="Fullsize">Fullsize</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Over-ear">Over-ear</option>
+                    <option value="1TB">1TB</option>
+                    <option value="Pack 3">Pack 3</option>
+                    <option value="Standard">Standard</option>
+                    <option value="Large">Large</option>
+                    <option value="Size B">Size B</option>
+                    <option value="160x80cm">160x80cm</option>
+                    <option value="Compact">Compact</option>
+                    <option value="Small">Small</option>
+                    <option value="15-17 inch">15-17 inch</option>
+                    <option value="2m">2m</option>
+                    <option value="Portable">Portable</option>
+                    <option value="25600mAh">25600mAh</option>
+                    <option value="256GB">256GB</option>
+                    <option value="1500VA">1500VA</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <select name="stockStatus" class="form-select">
+                <option value="">-- Tồn kho --</option>
+                <option value="in_stock">Còn hàng</option>
+                <option value="low_stock">Sắp hết hàng (≤ 10)</option>
+                <option value="out_of_stock">Hết hàng</option>
+            </select>
+        </div>
+
+        <div class="col-md-2 d-flex gap-2">
+            <button type="submit" class="btn btn-primary w-100 fw-semibold">
+                <i class="bi bi-filter me-1"></i> Lọc
+            </button>
+            <a class="btn btn-outline-secondary" title="Xóa bộ lọc" href="/">
+                <i class="bi bi-arrow-clockwise"></i>
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Product Cards Grid -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #10</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 40
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">B&#xE0;n l&#xE0;m vi&#x1EC7;c n&#xE2;ng h&#x1EA1; Ergonomic SmartDesk Pro</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>160x80cm</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">8,900,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="10" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="40" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #2</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 120
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">B&#xE0;n ph&#xED;m c&#x1A1; kh&#xF4;ng d&#xE2;y Logitech MX Mechanical</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>Fullsize</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">3,450,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="2" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="120" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #18</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 25
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">B&#x1ED9; l&#x1B0;u &#x111;i&#x1EC7;n UPS APC Back-UPS Pro 1500VA</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>1500VA</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">6,800,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="18" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="25" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #6</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 45
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">B&#x1ED9; ph&#xE1;t Wifi 6 Mesh TP-Link Deco X50 (B&#x1ED9; 3)</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>Pack 3</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">4,250,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="6" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="45" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #12</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 250
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">B&#x1ED9; s&#x1EA1;c &#x111;a c&#x1ED5;ng Anker Prime 100W GaN</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>Small</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">1,690,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="12" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="250" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #14</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 110
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">C&#xE1;p Thunderbolt 4 Belkin Pro 2m</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>2m</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">1,450,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="14" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="110" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #3</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 150
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">Chu&#x1ED9;t c&#xF4;ng th&#xE1;i h&#x1ECD;c Logitech MX Master 3S</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>Medium</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">2,390,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="3" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="150" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #13</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 180
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">&#x110;&#x1EBF; l&#xE0;m m&#xE1;t Laptop nh&#xF4;m nguy&#xEA;n kh&#x1ED1;i HyperStand</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>15-17 inch</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">650,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="13" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="180" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #9</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 20
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">Gh&#x1EBF; c&#xF4;ng th&#xE1;i h&#x1ECD;c Herman Miller Aeron</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>Size B</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">32,500,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="9" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="20" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #15</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 50
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">Loa h&#x1ED9;i ngh&#x1ECB; Bluetooth Jabra Speak 710</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>Portable</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">5,890,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="15" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="50" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #1</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 85
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">M&#xE0;n h&#xEC;nh Dell UltraSharp 27 inch 4K</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>27 inch</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">11,500,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="1" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="85" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #8</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 15
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">M&#xE1;y chi&#x1EBF;u th&#xF4;ng minh 4K BenQ TK700STi</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>Large</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">28,900,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="8" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="15" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #7</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 35
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">M&#xE1;y in &#x111;a n&#x103;ng laser Brother DCP-L2520D</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>Standard</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">4,190,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="7" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="35" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #5</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 200
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">&#x1ED4; c&#x1EE9;ng di &#x111;&#x1ED9;ng SSD Samsung T7 Shield 1TB</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>1TB</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">2,850,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="5" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="200" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #16</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 75
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">Pin s&#x1EA1;c d&#x1EF1; ph&#xF2;ng Shargeek Storm 2 25600mAh</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>25600mAh</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">4,200,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="16" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="75" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #4</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 60
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">Tai nghe ch&#x1ED1;ng &#x1ED3;n Sony WH-1000XM5</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>Over-ear</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">7,490,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="4" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="60" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #17</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 300
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">Th&#x1EBB; nh&#x1EDB; SanDisk Extreme Pro 256GB MicroSD</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>256GB</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">890,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="17" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="300" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-custom h-100 d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-light text-secondary border">Mã #11</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <i class="bi bi-check-circle me-1"></i>Còn hàng: 90
+                                </span>
+                        </div>
+
+                        <h5 class="card-title fw-bold text-dark mb-1">Webcam h&#x1ED9;i ngh&#x1ECB; tr&#x1EF1;c tuy&#x1EBF;n Logitech Brio 4K</h5>
+                        <p class="text-muted small mb-3">
+                            <i class="bi bi-aspect-ratio me-1"></i>Quy cách / Size: <strong>Compact</strong>
+                        </p>
+
+                        <div class="mt-auto pt-2 border-top">
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="text-muted small">Đơn giá bán buôn:</span>
+                                <span class="price-tag">4,350,000 ₫</span>
+                            </div>
+
+                                <form method="post" class="d-flex gap-2" action="/Cart/AddToCart">
+                                    
+                                    <input type="hidden" name="itemId" value="11" />
+                                    
+                                    <div class="input-group input-group-sm" style="width: 110px;">
+                                        <span class="input-group-text bg-light">SL</span>
+                                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="90" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1 fw-semibold">
+                                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-iebHyiV6F7YdDMLKZOzZCifgAFKgIQArtpiTV0Y6ePRswg1Y9WCOrDFgUhqvUqCXR9QRTBvqIKLLWQquztyw6dWnl_V3ivvIniDsTmt4TQvvrX93DLHdiRkddTSI0qwPM0m_R5gwTstbsqoGXQof7E3ppmGyGBrjpjMLaKaOOzzTw" /></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer b-owwc7i4v3z class="footer">
+        <div b-owwc7i4v3z class="container d-flex flex-wrap justify-content-between align-items-center">
+            <div b-owwc7i4v3z>
+                <strong b-owwc7i4v3z>B2B Wholesale Order Management System</strong> &bull; FIT - Đại học Tôn Đức Thắng (TDTU)
+            </div>
+            <div b-owwc7i4v3z>
+                <span b-owwc7i4v3z>Lab Assignment 2 &bull; Sem 1_2627</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gi&#x1ECF; H&#xE0;ng &#x110;&#x1EB7;t H&#xE0;ng B&#xE1;n Bu&#xF4;n - B2B Wholesale Portal</title>
+    
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --b2b-primary: #1a365d;
+            --b2b-secondary: #2b6cb0;
+            --b2b-accent: #3182ce;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-b2b {
+            background-color: var(--b2b-primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #ffffff !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #e2e8f0 !important;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ffffff !important;
+        }
+
+        .cart-badge {
+            background-color: #e53e3e;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 3px 6px;
+            border-radius: 10px;
+            vertical-align: top;
+            margin-left: 2px;
+        }
+
+        .footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            margin-top: auto;
+            padding: 15px 0;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .card-custom {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: #ffffff;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        }
+
+        .price-tag {
+            color: #c53030;
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav b-owwc7i4v3z class="navbar navbar-expand-lg navbar-dark navbar-b2b sticky-top">
+        <div b-owwc7i4v3z class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <i b-owwc7i4v3z class="bi bi-boxes fs-4 me-2 text-warning"></i>
+                <span b-owwc7i4v3z>B2B Wholesale Portal</span>
+            </a>
+
+            <button b-owwc7i4v3z class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span b-owwc7i4v3z class="navbar-toggler-icon"></span>
+            </button>
+
+            <div b-owwc7i4v3z class="collapse navbar-collapse" id="navbarContent">
+                <ul b-owwc7i4v3z class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li b-owwc7i4v3z class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i b-owwc7i4v3z class="bi bi-grid me-1"></i> Danh Mục Mặt Hàng
+                        </a>
+                    </li>
+                        <li b-owwc7i4v3z class="nav-item">
+                            <a class="nav-link" href="/Cart">
+                                <i b-owwc7i4v3z class="bi bi-cart3 me-1"></i> Giỏ Hàng Đặt Buôn
+                                    <span b-owwc7i4v3z class="cart-badge">5</span>
+                            </a>
+                        </li>
+                </ul>
+
+                <ul b-owwc7i4v3z class="navbar-nav ms-auto align-items-center">
+                        <li b-owwc7i4v3z class="nav-item dropdown">
+                            <a b-owwc7i4v3z class="nav-link dropdown-toggle d-flex align-items-center text-white" href="#" id="agentDropdown" role="button" data-bs-toggle="dropdown">
+                                <i b-owwc7i4v3z class="bi bi-person-badge fs-5 me-2 text-info"></i>
+                                <div b-owwc7i4v3z>
+                                    <span b-owwc7i4v3z class="fw-bold">&#x110;&#x1EA1;i l&#xFD; B&#xE1;n bu&#xF4;n Mi&#x1EC1;n B&#x1EAF;c - Ph&#xFA;c Anh Tech</span>
+                                    <span b-owwc7i4v3z class="badge bg-success ms-1">Đại lý</span>
+                                </div>
+                            </a>
+                            <ul b-owwc7i4v3z class="dropdown-menu dropdown-menu-end shadow">
+                                <li b-owwc7i4v3z><h6 b-owwc7i4v3z class="dropdown-header">Tài khoản: agent_hanoi</h6></li>
+                                <li b-owwc7i4v3z>
+                                    <a class="dropdown-item" href="/Cart">
+                                        <i b-owwc7i4v3z class="bi bi-cart me-2"></i>Xem giỏ hàng (5 món)
+                                    </a>
+                                </li>
+                                <li b-owwc7i4v3z><hr b-owwc7i4v3z class="dropdown-divider"></li>
+                                <li b-owwc7i4v3z>
+                                    <form method="post" class="d-inline" action="/Account/Logout">
+                                        
+                                        <button b-owwc7i4v3z type="submit" class="dropdown-item text-danger">
+                                            <i b-owwc7i4v3z class="bi bi-box-arrow-right me-2"></i>Đăng xuất
+                                        </button>
+                                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-id6TKLuibke2cO5HH8EsiyKOd5IBC6o1oKCT3vQ9NWsjvsbMn4lizyDuHClgrLXrjzNwR_fLhKso0ojJyQ9Bc7ccRP6WjfYIMLXKoGO6BWHdIhYQqRa-dies-UzHkmv00z5Xk5vX-Cv0qvklqbxsOVkUFd_3aR2py2bnFc4aIoRVw" /></form>
+                                </li>
+                            </ul>
+                        </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Global Toast / Alert Notifications -->
+    <div b-owwc7i4v3z class="container mt-3">
+            <div b-owwc7i4v3z class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                <i b-owwc7i4v3z class="bi bi-check-circle-fill me-2 fs-5"></i>
+                <strong b-owwc7i4v3z>Thành công:</strong> &#x110;&#xE3; th&#xEA;m 3 x &#x27;B&#xE0;n ph&#xED;m c&#x1A1; kh&#xF4;ng d&#xE2;y Logitech MX Mechanical&#x27; v&#xE0;o gi&#x1ECF; h&#xE0;ng &#x111;&#x1EB7;t bu&#xF4;n th&#xE0;nh c&#xF4;ng!
+                <button b-owwc7i4v3z type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+    </div>
+
+    <!-- Main Content Body -->
+    <main b-owwc7i4v3z class="container my-4">
+        
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold text-primary mb-0">
+        <i class="bi bi-cart3 me-2"></i>Giỏ Hàng Đặt Hàng Đại Lý
+    </h3>
+    <a class="btn btn-outline-secondary btn-sm" href="/">
+        <i class="bi bi-arrow-left me-1"></i> Tiếp tục chọn mặt hàng
+    </a>
+</div>
+
+    <div class="row g-4">
+        <!-- Cart Items Table -->
+        <div class="col-lg-8">
+            <div class="card card-custom p-3 shadow-sm">
+                <div class="table-responsive">
+                    <table class="table align-middle table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 45%;">Mặt hàng</th>
+                                <th class="text-end" style="width: 20%;">Đơn giá</th>
+                                <th class="text-center" style="width: 15%;">Số lượng</th>
+                                <th class="text-end" style="width: 20%;">Thành tiền</th>
+                                <th class="text-center" style="width: 5%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="fw-bold text-dark">M&#xE0;n h&#xEC;nh Dell UltraSharp 27 inch 4K</div>
+                                        <div class="text-muted small">
+                                            <span>Mã #1</span> &bull; 
+                                            <span>Size: 27 inch</span> &bull; 
+                                            <span class="text-success">Kho còn: 85</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-end fw-semibold">
+                                        11,500,000 ₫
+                                    </td>
+                                    <td>
+                                        <form method="post" class="d-flex justify-content-center" action="/Cart/UpdateQuantity">
+                                            
+                                            <input type="hidden" name="itemId" value="1" />
+                                            <input type="number" name="quantity" value="2" min="1" max="85" 
+                                                   class="form-control form-control-sm text-center" style="width: 75px;" 
+                                                   onchange="this.form.submit()" />
+                                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-id6TKLuibke2cO5HH8EsiyKOd5IBC6o1oKCT3vQ9NWsjvsbMn4lizyDuHClgrLXrjzNwR_fLhKso0ojJyQ9Bc7ccRP6WjfYIMLXKoGO6BWHdIhYQqRa-dies-UzHkmv00z5Xk5vX-Cv0qvklqbxsOVkUFd_3aR2py2bnFc4aIoRVw" /></form>
+                                    </td>
+                                    <td class="text-end fw-bold text-primary">
+                                        23,000,000 ₫
+                                    </td>
+                                    <td class="text-center">
+                                        <form method="post" action="/Cart/RemoveItem">
+                                            
+                                            <input type="hidden" name="itemId" value="1" />
+                                            <button type="submit" class="btn btn-outline-danger btn-sm p-1" title="Xóa khỏi giỏ">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-id6TKLuibke2cO5HH8EsiyKOd5IBC6o1oKCT3vQ9NWsjvsbMn4lizyDuHClgrLXrjzNwR_fLhKso0ojJyQ9Bc7ccRP6WjfYIMLXKoGO6BWHdIhYQqRa-dies-UzHkmv00z5Xk5vX-Cv0qvklqbxsOVkUFd_3aR2py2bnFc4aIoRVw" /></form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="fw-bold text-dark">B&#xE0;n ph&#xED;m c&#x1A1; kh&#xF4;ng d&#xE2;y Logitech MX Mechanical</div>
+                                        <div class="text-muted small">
+                                            <span>Mã #2</span> &bull; 
+                                            <span>Size: Fullsize</span> &bull; 
+                                            <span class="text-success">Kho còn: 120</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-end fw-semibold">
+                                        3,450,000 ₫
+                                    </td>
+                                    <td>
+                                        <form method="post" class="d-flex justify-content-center" action="/Cart/UpdateQuantity">
+                                            
+                                            <input type="hidden" name="itemId" value="2" />
+                                            <input type="number" name="quantity" value="3" min="1" max="120" 
+                                                   class="form-control form-control-sm text-center" style="width: 75px;" 
+                                                   onchange="this.form.submit()" />
+                                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-id6TKLuibke2cO5HH8EsiyKOd5IBC6o1oKCT3vQ9NWsjvsbMn4lizyDuHClgrLXrjzNwR_fLhKso0ojJyQ9Bc7ccRP6WjfYIMLXKoGO6BWHdIhYQqRa-dies-UzHkmv00z5Xk5vX-Cv0qvklqbxsOVkUFd_3aR2py2bnFc4aIoRVw" /></form>
+                                    </td>
+                                    <td class="text-end fw-bold text-primary">
+                                        10,350,000 ₫
+                                    </td>
+                                    <td class="text-center">
+                                        <form method="post" action="/Cart/RemoveItem">
+                                            
+                                            <input type="hidden" name="itemId" value="2" />
+                                            <button type="submit" class="btn btn-outline-danger btn-sm p-1" title="Xóa khỏi giỏ">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-id6TKLuibke2cO5HH8EsiyKOd5IBC6o1oKCT3vQ9NWsjvsbMn4lizyDuHClgrLXrjzNwR_fLhKso0ojJyQ9Bc7ccRP6WjfYIMLXKoGO6BWHdIhYQqRa-dies-UzHkmv00z5Xk5vX-Cv0qvklqbxsOVkUFd_3aR2py2bnFc4aIoRVw" /></form>
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+                    <form method="post" action="/Cart/Clear">
+                        
+                        <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa toàn bộ giỏ hàng?');">
+                            <i class="bi bi-trash3 me-1"></i> Xóa tất cả
+                        </button>
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8CuUdiDisd1Ni2o9wu7l-id6TKLuibke2cO5HH8EsiyKOd5IBC6o1oKCT3vQ9NWsjvsbMn4lizyDuHClgrLXrjzNwR_fLhKso0ojJyQ9Bc7ccRP6WjfYIMLXKoGO6BWHdIhYQqRa-dies-UzHkmv00z5Xk5vX-Cv0qvklqbxsOVkUFd_3aR2py2bnFc4aIoRVw" /></form>
+                    <div class="text-muted small">
+                        Tổng số lượng sản phẩm: <strong>5</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary & Checkout Card -->
+        <div class="col-lg-4">
+            <div class="card card-custom p-4 shadow-sm sticky-top" style="top: 80px;">
+                <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                    <i class="bi bi-receipt me-2 text-primary"></i>Tổng Kết Đơn Đặt Buôn
+                </h5>
+
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Tổng số món:</span>
+                    <span class="fw-semibold">2 mặt hàng</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Tổng số lượng:</span>
+                    <span class="fw-semibold">5 sản phẩm</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                    <span class="text-muted">Thuế VAT (0% xuất buôn):</span>
+                    <span class="fw-semibold">0 ₫</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-baseline mb-4">
+                    <span class="fs-6 fw-bold">Tổng thanh toán:</span>
+                    <span class="fs-4 fw-bold text-danger">33,350,000 ₫</span>
+                </div>
+
+                <a class="btn btn-success btn-lg w-100 fw-bold shadow-sm py-2" href="/Order/Checkout">
+                    <i class="bi bi-check2-circle me-1"></i> Tiến Hành Đặt Hàng
+                </a>
+
+                <div class="alert alert-info mt-3 p-2 small mb-0">
+                    <i class="bi bi-shield-check me-1"></i> Đơn hàng được đảm bảo xử lý thông qua <strong>Database Transaction</strong> tự động khấu trừ kho.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer b-owwc7i4v3z class="footer">
+        <div b-owwc7i4v3z class="container d-flex flex-wrap justify-content-between align-items-center">
+            <div b-owwc7i4v3z>
+                <strong b-owwc7i4v3z>B2B Wholesale Order Management System</strong> &bull; FIT - Đại học Tôn Đức Thắng (TDTU)
+            </div>
+            <div b-owwc7i4v3z>
+                <span b-owwc7i4v3z>Lab Assignment 2 &bull; Sem 1_2627</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

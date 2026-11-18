@@ -19,7 +19,7 @@ builder.Services.AddScoped<OrderService>();
 
 // 3. Configure Database Connection (SQL Server with resilient in-memory fallback)
 var connectionString = builder.Configuration.GetConnectionString("B2BConnection")
-    ?? "Server=localhost;Database=B2BWholesaleDB;Trusted_Connection=True;TrustServerCertificate=True;";
+    ?? throw new InvalidOperationException("Connection string 'B2BConnection' not found in appsettings.json.");
 
 bool isSqlServerAvailable = false;
 try

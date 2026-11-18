@@ -83,7 +83,13 @@
                 Đơn hàng trên đã được đồng bộ trực tiếp tới cơ sở dữ liệu dùng chung. Nhân viên kho trên ứng dụng <strong>WinForms Back-Office (Thành viên 2)</strong> hiện có thể nhìn thấy đơn hàng này để chuyển trạng thái sang <em>'Shipped'</em> và in phiếu <em>Shipping Manifest</em>.
             </div>
 
-            <div class="mt-4 d-flex justify-content-center gap-3">
+            <div class="mt-4 d-flex flex-wrap justify-content-center gap-3">
+                <a asp-controller="Order" asp-action="Invoice" asp-route-id="@Model.OrderID" class="btn btn-success px-4 fw-semibold">
+                    <i class="bi bi-printer me-1"></i> Xem & In Hóa Đơn (Invoice)
+                </a>
+                <a asp-controller="Order" asp-action="MyOrders" class="btn btn-outline-primary px-4 fw-semibold">
+                    <i class="bi bi-receipt-cutoff me-1"></i> Đơn Hàng Của Tôi
+                </a>
                 <a asp-controller="Catalog" asp-action="Index" class="btn btn-primary px-4 fw-semibold">
                     <i class="bi bi-cart-plus me-1"></i> Tiếp Tục Đặt Thêm Hàng
                 </a>

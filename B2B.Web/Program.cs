@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using B2B.Data.Context;
 using B2B.Data.Seed;
+using B2B.Data.Services;
 using B2B.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,9 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 // 1. Add MVC Controllers with Views
 builder.Services.AddControllersWithViews();
 
-// 2. Add HttpContextAccessor and Session Cart Service
+// 2. Add HttpContextAccessor, Session Cart Service & Core Business Services
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<CartService>();
+builder.Services.AddSingleton<LoginAttemptTracker>();
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<OrderService>();
 
 // 3. Configure Database Connection (SQL Server with resilient in-memory fallback)
 var connectionString = builder.Configuration.GetConnectionString("B2BConnection")

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using B2B.Data.Context;
-using B2B.Data.Entities;
+using B2B.Data.Services;
 using B2B.Web.Models;
 using B2B.Web.Services;
 
@@ -14,12 +14,18 @@ public class OrderController : Controller
 {
     private readonly B2BDbContext _context;
     private readonly CartService _cartService;
+    private readonly OrderService _orderService;
     private readonly ILogger<OrderController> _logger;
 
-    public OrderController(B2BDbContext context, CartService cartService, ILogger<OrderController> logger)
+    public OrderController(
+        B2BDbContext context,
+        CartService cartService,
+        OrderService orderService,
+        ILogger<OrderController> logger)
     {
         _context = context;
         _cartService = cartService;
+        _orderService = orderService;
         _logger = logger;
     }
 
@@ -31,7 +37,6 @@ public class OrderController : Controller
             return agentId;
         }
 
-        // Fallback: lookup user
         var userName = User.Identity?.Name;
         var user = _context.Users.FirstOrDefault(u => u.UserName == userName);
         return user?.AgentID ?? 1;
@@ -64,9 +69,7 @@ public class OrderController : Controller
 
     /// <summary>
     /// Task 3.2 (15% - Core Business Logic):
-    /// Crucial: When an order is placed, you must use a Database Transaction to create
-    /// the Order, insert the OrderDetails, AND deduct the ordered quantity from the
-    /// Item.StockQuantity. If there is insufficient stock, the order must be blocked.
+    /// Executes Master-Detail order creation and stock deduction inside an atomic Database Transaction.
     /// </summary>
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -87,82 +90,18 @@ public class OrderController : Controller
             return RedirectToAction("Index", "Catalog");
         }
 
-        // START DATABASE TRANSACTION (when relational provider like SQL Server is active)
-        Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction? transaction = null;
-        if (_context.Database.IsRelational())
-        {
-            transaction = await _context.Database.BeginTransactionAsync();
-        }
-
         try
         {
             _logger.LogInformation("Bắt đầu Database Transaction đặt hàng cho AgentID: {AgentID}...", agentId);
 
-            // Step 1: Pre-verify all items in the database for stock availability
-            var itemIds = cart.Items.Select(i => i.ItemID).ToList();
-            var dbItems = await _context.Item
-                .Where(i => itemIds.Contains(i.ItemID))
-                .ToDictionaryAsync(i => i.ItemID);
+            var orderItems = cart.Items
+                .Select(i => new OrderItemRequest(i.ItemID, i.Quantity))
+                .ToList();
 
-            foreach (var cartItem in cart.Items)
-            {
-                if (!dbItems.TryGetValue(cartItem.ItemID, out var dbItem))
-                {
-                    throw new InvalidOperationException($"Mặt hàng mã #{cartItem.ItemID} ('{cartItem.ItemName}') không còn tồn tại trong hệ thống.");
-                }
-
-                // Check insufficient stock constraint
-                if (dbItem.StockQuantity < cartItem.Quantity)
-                {
-                    throw new InvalidOperationException(
-                        $"Đơn hàng bị chặn do thiếu tồn kho: Mặt hàng '{dbItem.ItemName}' chỉ còn {dbItem.StockQuantity} sản phẩm trong kho, nhưng đại lý yêu cầu đặt {cartItem.Quantity} sản phẩm.");
-                }
-            }
-
-            // Step 2: Create Master Order record with initial status 'Pending'
-            var order = new Order
-            {
-                OrderDate = DateTime.UtcNow,
-                AgentID = agentId,
-                OrderStatus = "Pending"
-            };
-
-            await _context.Order.AddAsync(order);
-            await _context.SaveChangesAsync(); // Generates order.OrderID
-
-            // Step 3: Insert OrderDetail records & deduct Item.StockQuantity
-            foreach (var cartItem in cart.Items)
-            {
-                var dbItem = dbItems[cartItem.ItemID];
-
-                var orderDetail = new OrderDetail
-                {
-                    OrderID = order.OrderID,
-                    ItemID = cartItem.ItemID,
-                    Quantity = cartItem.Quantity,
-                    UnitAmount = dbItem.Price
-                };
-
-                await _context.OrderDetail.AddAsync(orderDetail);
-
-                // Deduct stock quantity
-                dbItem.StockQuantity -= cartItem.Quantity;
-                _logger.LogInformation("Trừ kho mặt hàng #{ItemID} ('{ItemName}'): Giảm {Qty}, Tồn kho mới = {NewStock}",
-                    dbItem.ItemID, dbItem.ItemName, cartItem.Quantity, dbItem.StockQuantity);
-            }
-
-            // Save details and updated stock quantities
-            await _context.SaveChangesAsync();
-
-            // Step 4: Commit the Transaction atomically
-            if (transaction != null)
-            {
-                await transaction.CommitAsync();
-            }
+            var order = await _orderService.PlaceOrderAsync(agentId, orderItems);
 
             _logger.LogInformation("Database Transaction thành công! Đơn hàng #{OrderID} đã được tạo với {Count} món chi tiết.", order.OrderID, cart.Items.Count);
 
-            // Step 5: Clear Cart in session
             _cartService.ClearCart();
 
             TempData["Success"] = $"Đặt hàng bán buôn thành công! Mã đơn hàng của bạn là #{order.OrderID}.";
@@ -170,17 +109,12 @@ public class OrderController : Controller
         }
         catch (Exception ex)
         {
-            // Transaction Rollback on any failure
-            if (transaction != null)
-            {
-                await transaction.RollbackAsync();
-            }
             _logger.LogError(ex, "Database Transaction thất bại! Đã Rollback toàn bộ dữ liệu đơn hàng.");
 
             TempData["Error"] = ex.Message;
 
-            // Re-populate view model for checkout review
             model.Cart = cart;
+            model.AgentID = agentId;
             model.AgentName = agent.AgentName;
             model.Address = agent.Address;
             model.Phone = agent.Phone;
@@ -192,19 +126,79 @@ public class OrderController : Controller
     public async Task<IActionResult> OrderConfirmation(int id)
     {
         int agentId = GetCurrentAgentId();
-
-        var order = await _context.Order
-            .Include(o => o.Agent)
-            .Include(o => o.OrderDetails)
-                .ThenInclude(od => od.Item)
-            .FirstOrDefaultAsync(o => o.OrderID == id && o.AgentID == agentId);
+        var order = await _orderService.GetAgentOrderInvoiceAsync(id, agentId);
 
         if (order == null)
         {
-            TempData["Error"] = "Không tìm thấy đơn hàng.";
-            return RedirectToAction("Index", "Catalog");
+            TempData["Error"] = "Không tìm thấy đơn hàng hoặc bạn không có quyền xem đơn hàng này.";
+            return RedirectToAction("MyOrders");
         }
 
         return View(order);
+    }
+
+    /// <summary>
+    /// Task 3.3 (10% - Member 3):
+    /// "My Orders" page where the logged-in agent views ONLY their own past orders and order statuses.
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> MyOrders(string? status = null, string? search = null)
+    {
+        int agentId = GetCurrentAgentId();
+        var agent = await _context.Agent.AsNoTracking().FirstOrDefaultAsync(a => a.AgentID == agentId);
+        var orders = await _orderService.GetAgentOrdersAsync(agentId, status, search);
+
+        var viewModel = new MyOrdersViewModel
+        {
+            AgentID = agentId,
+            AgentName = agent?.AgentName ?? User.FindFirst("AgentName")?.Value ?? User.Identity?.Name ?? "Đại lý",
+            StatusFilter = status,
+            SearchQuery = search,
+            Orders = orders.Select(o => new OrderSummaryItemViewModel
+            {
+                OrderID = o.OrderID,
+                OrderDate = o.OrderDate,
+                OrderStatus = o.OrderStatus,
+                LineCount = o.OrderDetails.Count,
+                TotalQuantity = o.OrderDetails.Sum(od => od.Quantity),
+                TotalAmount = OrderService.CalculateOrderTotal(o.OrderDetails),
+                ItemNamesPreview = o.OrderDetails
+                    .Where(od => od.Item != null)
+                    .Select(od => $"{od.Item!.ItemName} (x{od.Quantity})")
+                    .ToList()
+            }).ToList()
+        };
+
+        return View(viewModel);
+    }
+
+    /// <summary>
+    /// Task 3.3 (10% - Member 3):
+    /// Printable HTML/CSS Print Media Invoice View with strict Agent ownership enforcement (IDOR protection).
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> Invoice(int id)
+    {
+        int agentId = GetCurrentAgentId();
+        var order = await _orderService.GetAgentOrderInvoiceAsync(id, agentId);
+
+        if (order == null)
+        {
+            _logger.LogWarning("Agent #{AgentID} attempted to access unauthorized or non-existent Order #{OrderID}.", agentId, id);
+            TempData["Error"] = $"Không tìm thấy hóa đơn cho đơn hàng #{id} hoặc bạn không có quyền truy cập đơn hàng của đại lý khác.";
+            return RedirectToAction("MyOrders");
+        }
+
+        var agentEmail = User.FindFirst(ClaimTypes.Email)?.Value
+            ?? (await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.AgentID == agentId))?.email
+            ?? "contact@b2bwholesale.vn";
+
+        var viewModel = new InvoiceViewModel
+        {
+            Order = order,
+            AgentEmail = agentEmail
+        };
+
+        return View(viewModel);
     }
 }

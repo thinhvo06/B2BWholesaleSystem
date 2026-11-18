@@ -2,20 +2,19 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using B2B.Data.Context;
+using B2B.Data.Services;
 using B2B.Web.Models;
 
 namespace B2B.Web.Controllers;
 
 public class AccountController : Controller
 {
-    private readonly B2BDbContext _context;
+    private readonly AuthService _authService;
     private readonly ILogger<AccountController> _logger;
 
-    public AccountController(B2BDbContext context, ILogger<AccountController> logger)
+    public AccountController(AuthService authService, ILogger<AccountController> logger)
     {
-        _context = context;
+        _authService = authService;
         _logger = logger;
     }
 
@@ -39,30 +38,16 @@ public class AccountController : Controller
             return View(model);
         }
 
-        // Query user from Database
-        var user = await _context.Users
-            .Include(u => u.Agent)
-            .FirstOrDefaultAsync(u => u.UserName == model.UserName);
+        // Task 3.1: Authenticate via shared AuthService enforcing Role='Agent' and lockout threshold
+        var authResult = await _authService.AuthenticateAsync(model.UserName, model.Password, requiredRole: "Agent");
 
-        if (user == null || user.password != model.Password)
+        if (!authResult.Succeeded || authResult.User == null)
         {
-            ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không chính xác.");
+            ModelState.AddModelError(string.Empty, authResult.ErrorMessage);
             return View(model);
         }
 
-        // Check if user is locked
-        if (user.@lock)
-        {
-            ModelState.AddModelError(string.Empty, "Tài khoản của bạn hiện đang bị khóa. Vui lòng liên hệ quản trị kho.");
-            return View(model);
-        }
-
-        // Task 3.1: Only users with the Agent role can access the ordering portal
-        if (!string.Equals(user.Role, "Agent", StringComparison.OrdinalIgnoreCase))
-        {
-            ModelState.AddModelError(string.Empty, "Truy cập bị từ chối: Tài khoản quyền 'Admin' chỉ được truy cập qua phần mềm WinForms Back-Office. Web Portal chỉ dành cho Đại lý (Agent).");
-            return View(model);
-        }
+        var user = authResult.User;
 
         // Find associated Agent
         int agentId = user.AgentID ?? (user.Agent != null ? user.Agent.AgentID : 1);

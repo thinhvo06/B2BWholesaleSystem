@@ -95,7 +95,7 @@
 </head>
 <body>
     <!-- Top Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-b2b sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-b2b sticky-top d-print-none">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" asp-controller="Catalog" asp-action="Index">
                 <i class="bi bi-boxes fs-4 me-2 text-warning"></i>
@@ -124,6 +124,11 @@
                                 }
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Order" asp-action="MyOrders">
+                                <i class="bi bi-receipt-cutoff me-1"></i> Đơn Hàng Của Tôi
+                            </a>
+                        </li>
                     }
                 </ul>
 
@@ -143,6 +148,11 @@
                                 <li>
                                     <a class="dropdown-item" asp-controller="Cart" asp-action="Index">
                                         <i class="bi bi-cart me-2"></i>Xem giỏ hàng (@cartCount món)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Order" asp-action="MyOrders">
+                                        <i class="bi bi-receipt-cutoff me-2"></i>Đơn hàng & Hóa đơn của tôi
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
@@ -171,7 +181,7 @@
     </nav>
 
     <!-- Global Toast / Alert Notifications -->
-    <div class="container mt-3">
+    <div class="container mt-3 d-print-none">
         @if (TempData["Success"] != null)
         {
             <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
@@ -196,7 +206,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer d-print-none">
         <div class="container d-flex flex-wrap justify-content-between align-items-center">
             <div>
                 <strong>B2B Wholesale Order Management System</strong> &bull; FIT - Đại học Tôn Đức Thắng (TDTU)

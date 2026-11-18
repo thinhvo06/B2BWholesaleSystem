@@ -1,0 +1,293 @@
+@model B2B.Web.Models.InvoiceViewModel
+@{
+    ViewData["Title"] = $"Hóa Đơn {Model.InvoiceNumber}";
+    var order = Model.Order;
+    var statusBadgeClass = order.OrderStatus switch
+    {
+        "Pending" => "bg-warning text-dark",
+        "Confirmed" => "bg-info text-dark",
+        "Shipped" => "bg-primary text-white",
+        "Delivered" => "bg-success text-white",
+        "Cancelled" => "bg-danger text-white",
+        _ => "bg-secondary text-white"
+    };
+}
+
+<style>
+    .invoice-paper {
+        background: #ffffff;
+        border: 1px solid #cbd5e0;
+        border-radius: 10px;
+        box-shadow: 0 8px 24px rgba(26, 54, 93, 0.08);
+        padding: 40px 44px;
+        max-width: 920px;
+        margin: 0 auto;
+        color: #1a202c;
+    }
+
+    .invoice-brand-bar {
+        border-bottom: 3px solid #1a365d;
+        padding-bottom: 20px;
+        margin-bottom: 24px;
+    }
+
+    .invoice-title {
+        color: #1a365d;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        font-size: 1.65rem;
+    }
+
+    .invoice-meta-box {
+        background-color: #f7fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 16px 20px;
+    }
+
+    .invoice-table thead th {
+        background-color: #1a365d !important;
+        color: #ffffff !important;
+        font-weight: 600;
+        border-color: #1a365d !important;
+        font-size: 0.88rem;
+    }
+
+    .invoice-table tbody td {
+        vertical-align: middle;
+        border-color: #e2e8f0;
+    }
+
+    .invoice-totals-box {
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e0;
+        border-radius: 8px;
+        padding: 16px 20px;
+    }
+
+    .signature-box {
+        min-height: 110px;
+        border-top: 1px dashed #cbd5e0;
+        padding-top: 12px;
+    }
+
+    /* Dedicated A4 Print Media Stylesheet (Task 3.3) */
+    @@media print {
+        @@page {
+            size: A4 portrait;
+            margin: 12mm 14mm;
+        }
+
+        body {
+            background: #ffffff !important;
+            color: #000000 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        main.container {
+            max-width: 100% !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .invoice-paper {
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+        }
+
+        .d-print-none {
+            display: none !important;
+        }
+
+        .invoice-table thead th {
+            background-color: #1a365d !important;
+            color: #ffffff !important;
+        }
+
+        .page-break-avoid {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+    }
+</style>
+
+<!-- Screen-Only Action Toolbar -->
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4 d-print-none" style="max-width: 920px; margin: 0 auto;">
+    <a asp-controller="Order" asp-action="MyOrders" class="btn btn-outline-secondary fw-semibold">
+        <i class="bi bi-arrow-left me-1"></i> Quay Lại Đơn Hàng Của Tôi
+    </a>
+
+    <div class="d-flex gap-2">
+        <a asp-controller="Catalog" asp-action="Index" class="btn btn-outline-primary fw-semibold">
+            <i class="bi bi-cart-plus me-1"></i> Đặt Thêm Hàng
+        </a>
+        <button type="button" class="btn btn-primary fw-bold px-4 shadow-sm" onclick="window.print()">
+            <i class="bi bi-printer-fill me-2"></i> In Hóa Đơn / Xuất PDF
+        </button>
+    </div>
+</div>
+
+<!-- Printable Invoice Document -->
+<div class="invoice-paper">
+    <!-- Distributor Logo & Invoice Header -->
+    <div class="invoice-brand-bar d-flex flex-wrap justify-content-between align-items-start gap-3">
+        <div class="d-flex align-items-start gap-3">
+            <!-- Inline SVG Brand Logo (works offline and in print/PDF) -->
+            <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="B2B Wholesale Logo">
+                <rect width="64" height="64" rx="12" fill="#1a365d" />
+                <path d="M32 12L50 22V42L32 52L14 42V22L32 12Z" fill="none" stroke="#ecc94b" stroke-width="3" />
+                <path d="M32 12V32M32 32L50 22M32 32L14 22" stroke="#ecc94b" stroke-width="2.5" />
+                <circle cx="32" cy="32" r="4" fill="#ecc94b" />
+            </svg>
+            <div>
+                <h5 class="fw-bold mb-1" style="color: #1a365d;">B2B WHOLESALE DISTRIBUTION CORP.</h5>
+                <div class="small text-muted">Tổng Kho Phân Phối Thiết Bị Công Nghệ & Văn Phòng B2B</div>
+                <div class="small text-muted">Địa chỉ: 19 Nguyễn Hữu Thọ, P. Tân Phong, Quận 7, TP. Hồ Chí Minh</div>
+                <div class="small text-muted">MST: 0312627890 &bull; Hotline: 1900-6868 &bull; Email: billing@b2bwholesale.vn</div>
+            </div>
+        </div>
+
+        <div class="text-md-end">
+            <div class="invoice-title">HÓA ĐƠN BÁN BUÔN</div>
+            <div class="text-uppercase small fw-semibold text-secondary mb-2">WHOLESALE TAX INVOICE</div>
+            <div class="small">
+                <span class="text-muted">Số hóa đơn:</span>
+                <strong class="text-primary">@Model.InvoiceNumber</strong>
+            </div>
+            <div class="small">
+                <span class="text-muted">Mã đơn hàng:</span>
+                <strong>#@order.OrderID</strong>
+            </div>
+            <div class="small">
+                <span class="text-muted">Ngày lập:</span>
+                <strong>@order.OrderDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</strong>
+            </div>
+            <div class="mt-2">
+                <span class="badge @statusBadgeClass px-3 py-1">Trạng thái: @order.OrderStatus</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bill To / Ship To & Payment Info -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-7">
+            <div class="invoice-meta-box h-100">
+                <div class="text-uppercase small fw-bold text-primary mb-2">
+                    <i class="bi bi-building me-1"></i> Thông Tin Đại Lý Mua Hàng (Bill To / Ship To)
+                </div>
+                <div class="fw-bold fs-6 mb-1">@(order.Agent?.AgentName ?? "Đại lý phân phối")</div>
+                <div class="small mb-1"><strong>Mã đại lý:</strong> AG-@order.AgentID.ToString("D3")</div>
+                <div class="small mb-1"><strong>Địa chỉ giao hàng:</strong> @(order.Agent?.Address ?? "Chưa cập nhật")</div>
+                <div class="small mb-1"><strong>Điện thoại:</strong> @(order.Agent?.Phone ?? "Chưa cập nhật")</div>
+                <div class="small mb-0"><strong>Email tài khoản:</strong> @Model.AgentEmail</div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="invoice-meta-box h-100">
+                <div class="text-uppercase small fw-bold text-primary mb-2">
+                    <i class="bi bi-info-circle me-1"></i> Thông Tin Chứng Từ & Thanh Toán
+                </div>
+                <div class="small mb-1"><strong>Hình thức:</strong> Chuyển khoản B2B / Công nợ đại lý</div>
+                <div class="small mb-1"><strong>Đơn vị tiền tệ:</strong> Việt Nam Đồng (VNĐ)</div>
+                <div class="small mb-1"><strong>Số dòng mặt hàng:</strong> @order.OrderDetails.Count dòng</div>
+                <div class="small mb-1"><strong>Tổng số lượng giao:</strong> @Model.TotalQuantity sản phẩm</div>
+                <div class="small mb-0"><strong>Ngày in hóa đơn:</strong> @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Itemized Order Details Table -->
+    <div class="table-responsive mb-4">
+        <table class="table table-bordered invoice-table mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center" style="width: 6%;">STT</th>
+                    <th class="text-center" style="width: 11%;">Mã SP</th>
+                    <th style="width: 35%;">Tên Sản Phẩm</th>
+                    <th class="text-center" style="width: 13%;">Quy Cách</th>
+                    <th class="text-center" style="width: 9%;">SL</th>
+                    <th class="text-end" style="width: 13%;">Đơn Giá</th>
+                    <th class="text-end" style="width: 13%;">Thành Tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int stt = 1;
+                }
+                @foreach (var detail in order.OrderDetails)
+                {
+                    var lineTotal = detail.Quantity * detail.UnitAmount;
+                    <tr>
+                        <td class="text-center">@(stt++)</td>
+                        <td class="text-center fw-semibold text-muted">SP-@detail.ItemID.ToString("D3")</td>
+                        <td class="fw-semibold">@(detail.Item?.ItemName ?? $"Sản phẩm #{detail.ItemID}")</td>
+                        <td class="text-center text-muted small">@(string.IsNullOrWhiteSpace(detail.Item?.Size) ? "Tiêu chuẩn" : detail.Item.Size)</td>
+                        <td class="text-center fw-bold">@detail.Quantity</td>
+                        <td class="text-end">@detail.UnitAmount.ToString("#,##0") ₫</td>
+                        <td class="text-end fw-bold">@lineTotal.ToString("#,##0") ₫</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Totals & Amount In Words -->
+    <div class="row g-3 align-items-stretch mb-4 page-break-avoid">
+        <div class="col-md-7">
+            <div class="invoice-meta-box h-100 d-flex flex-column justify-content-center">
+                <div class="small text-muted mb-1">Số tiền viết bằng chữ (Amount in words):</div>
+                <div class="fw-bold fst-italic text-dark">@Model.AmountInWords.</div>
+                <hr class="my-2" />
+                <div class="small text-muted">
+                    <strong>Ghi chú:</strong> Hàng hóa đã được kiểm đếm và trừ tồn kho trực tiếp qua hệ thống B2B Wholesale. Vui lòng kiểm tra kỹ số lượng và quy cách khi ký nhận hàng cùng phiếu Shipping Manifest.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="invoice-totals-box h-100">
+                <div class="d-flex justify-content-between small mb-2">
+                    <span class="text-muted">Cộng tiền hàng (Subtotal):</span>
+                    <span class="fw-semibold">@Model.SubTotal.ToString("#,##0") ₫</span>
+                </div>
+                <div class="d-flex justify-content-between small mb-2 pb-2 border-bottom">
+                    <span class="text-muted">Thuế GTGT / VAT (0% giá xuất buôn):</span>
+                    <span class="fw-semibold">@Model.VatAmount.ToString("#,##0") ₫</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-baseline pt-1">
+                    <span class="fw-bold text-uppercase">Tổng Cộng Thanh Toán:</span>
+                    <span class="fs-5 fw-bold text-danger">@Model.GrandTotal.ToString("#,##0") ₫</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signature Section -->
+    <div class="row text-center mt-5 pt-2 page-break-avoid">
+        <div class="col-4">
+            <div class="fw-bold small text-uppercase">Người Lập Hóa Đơn</div>
+            <div class="text-muted small fst-italic mb-4">(Ký, ghi rõ họ tên)</div>
+            <div class="signature-box small text-muted mt-4">Phòng Kế Toán & Kho Vận</div>
+        </div>
+        <div class="col-4">
+            <div class="fw-bold small text-uppercase">Đơn Vị Vận Chuyển</div>
+            <div class="text-muted small fst-italic mb-4">(Ký, ghi rõ họ tên)</div>
+            <div class="signature-box small text-muted mt-4">Xác nhận xuất kho giao hàng</div>
+        </div>
+        <div class="col-4">
+            <div class="fw-bold small text-uppercase">Đại Diện Đại Lý Nhận Hàng</div>
+            <div class="text-muted small fst-italic mb-4">(Ký, đóng dấu & ghi rõ họ tên)</div>
+            <div class="signature-box small text-muted mt-4">@(order.Agent?.AgentName ?? "Đại lý")</div>
+        </div>
+    </div>
+
+    <div class="text-center text-muted small mt-4 pt-3 border-top">
+        Chứng từ điện tử được phát hành từ <strong>B2B Wholesale Order Management System</strong> (FIT - Đại học Tôn Đức Thắng) &bull; Hóa đơn #@Model.InvoiceNumber
+    </div>
+</div>

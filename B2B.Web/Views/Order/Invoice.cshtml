@@ -75,12 +75,13 @@
     @@media print {
         @@page {
             size: A4 portrait;
-            margin: 12mm 14mm;
+            margin: 10mm 12mm;
         }
 
         body {
             background: #ffffff !important;
             color: #000000 !important;
+            font-size: 12px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
         }
@@ -98,6 +99,23 @@
             padding: 0 !important;
             max-width: 100% !important;
             margin: 0 !important;
+        }
+
+        .invoice-brand-bar {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            justify-content: space-between !important;
+            padding-bottom: 12px !important;
+            margin-bottom: 14px !important;
+        }
+
+        .invoice-meta-box, .invoice-totals-box {
+            padding: 10px 14px !important;
+        }
+
+        .signature-box {
+            min-height: 65px !important;
         }
 
         .d-print-none {
@@ -175,7 +193,7 @@
 
     <!-- Bill To / Ship To & Payment Info -->
     <div class="row g-3 mb-4">
-        <div class="col-md-7">
+        <div class="col-7">
             <div class="invoice-meta-box h-100">
                 <div class="text-uppercase small fw-bold text-primary mb-2">
                     <i class="bi bi-building me-1"></i> Thông Tin Đại Lý Mua Hàng (Bill To / Ship To)
@@ -188,7 +206,7 @@
             </div>
         </div>
 
-        <div class="col-md-5">
+        <div class="col-5">
             <div class="invoice-meta-box h-100">
                 <div class="text-uppercase small fw-bold text-primary mb-2">
                     <i class="bi bi-info-circle me-1"></i> Thông Tin Chứng Từ & Thanh Toán
@@ -207,13 +225,13 @@
         <table class="table table-bordered invoice-table mb-0">
             <thead>
                 <tr>
-                    <th class="text-center" style="width: 6%;">STT</th>
-                    <th class="text-center" style="width: 11%;">Mã SP</th>
-                    <th style="width: 35%;">Tên Sản Phẩm</th>
-                    <th class="text-center" style="width: 13%;">Quy Cách</th>
-                    <th class="text-center" style="width: 9%;">SL</th>
-                    <th class="text-end" style="width: 13%;">Đơn Giá</th>
-                    <th class="text-end" style="width: 13%;">Thành Tiền</th>
+                    <th class="text-center text-nowrap" style="width: 5%;">STT</th>
+                    <th class="text-center text-nowrap" style="width: 10%;">Mã SP</th>
+                    <th style="width: 34%;">Tên Sản Phẩm</th>
+                    <th class="text-center text-nowrap" style="width: 11%;">Quy Cách</th>
+                    <th class="text-center text-nowrap" style="width: 7%;">SL</th>
+                    <th class="text-end text-nowrap" style="width: 16%;">Đơn Giá</th>
+                    <th class="text-end text-nowrap" style="width: 17%;">Thành Tiền</th>
                 </tr>
             </thead>
             <tbody>
@@ -225,12 +243,12 @@
                     var lineTotal = detail.Quantity * detail.UnitAmount;
                     <tr>
                         <td class="text-center">@(stt++)</td>
-                        <td class="text-center fw-semibold text-muted">SP-@detail.ItemID.ToString("D3")</td>
+                        <td class="text-center fw-semibold text-muted text-nowrap">SP-@detail.ItemID.ToString("D3")</td>
                         <td class="fw-semibold">@(detail.Item?.ItemName ?? $"Sản phẩm #{detail.ItemID}")</td>
-                        <td class="text-center text-muted small">@(string.IsNullOrWhiteSpace(detail.Item?.Size) ? "Tiêu chuẩn" : detail.Item.Size)</td>
+                        <td class="text-center text-muted small text-nowrap">@(string.IsNullOrWhiteSpace(detail.Item?.Size) ? "Tiêu chuẩn" : detail.Item.Size)</td>
                         <td class="text-center fw-bold">@detail.Quantity</td>
-                        <td class="text-end">@detail.UnitAmount.ToString("#,##0") ₫</td>
-                        <td class="text-end fw-bold">@lineTotal.ToString("#,##0") ₫</td>
+                        <td class="text-end text-nowrap">@detail.UnitAmount.ToString("#,##0") ₫</td>
+                        <td class="text-end fw-bold text-nowrap">@lineTotal.ToString("#,##0") ₫</td>
                     </tr>
                 }
             </tbody>
@@ -239,7 +257,7 @@
 
     <!-- Totals & Amount In Words -->
     <div class="row g-3 align-items-stretch mb-4 page-break-avoid">
-        <div class="col-md-7">
+        <div class="col-7">
             <div class="invoice-meta-box h-100 d-flex flex-column justify-content-center">
                 <div class="small text-muted mb-1">Số tiền viết bằng chữ (Amount in words):</div>
                 <div class="fw-bold fst-italic text-dark">@Model.AmountInWords.</div>
@@ -250,19 +268,19 @@
             </div>
         </div>
 
-        <div class="col-md-5">
+        <div class="col-5">
             <div class="invoice-totals-box h-100">
                 <div class="d-flex justify-content-between small mb-2">
-                    <span class="text-muted">Cộng tiền hàng (Subtotal):</span>
-                    <span class="fw-semibold">@Model.SubTotal.ToString("#,##0") ₫</span>
+                    <span class="text-muted">Cộng tiền hàng:</span>
+                    <span class="fw-semibold text-nowrap">@Model.SubTotal.ToString("#,##0") ₫</span>
                 </div>
                 <div class="d-flex justify-content-between small mb-2 pb-2 border-bottom">
-                    <span class="text-muted">Thuế GTGT / VAT (0% giá xuất buôn):</span>
-                    <span class="fw-semibold">@Model.VatAmount.ToString("#,##0") ₫</span>
+                    <span class="text-muted">Thuế VAT (0% xuất buôn):</span>
+                    <span class="fw-semibold text-nowrap">@Model.VatAmount.ToString("#,##0") ₫</span>
                 </div>
-                <div class="d-flex justify-content-between align-items-baseline pt-1">
-                    <span class="fw-bold text-uppercase">Tổng Cộng Thanh Toán:</span>
-                    <span class="fs-5 fw-bold text-danger">@Model.GrandTotal.ToString("#,##0") ₫</span>
+                <div class="d-flex justify-content-between align-items-baseline gap-2 pt-1">
+                    <span class="fw-bold small text-uppercase text-nowrap">Tổng Thanh Toán:</span>
+                    <span class="fs-5 fw-bold text-danger text-nowrap">@Model.GrandTotal.ToString("#,##0") ₫</span>
                 </div>
             </div>
         </div>

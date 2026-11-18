@@ -23,22 +23,22 @@ def update_workbook():
 
     ws["B11"], ws["C11"], ws["D11"], ws["E11"] = "Võ Nguyễn Phúc Thịnh", "[MSSV 1]", "Leader / Fullstack Web & Shared DB", 0.34
     # Keep Row 12 (Member 2: Ôn Gia Khiêm, 524H0057, 0.33)
-    ws["B13"], ws["C13"], ws["D13"], ws["E13"] = "Nguyễn Nhật Huy", "[MSSV 3]", "QA, Unit Testing, Web Invoices & Docs", 0.33
+    ws["B13"], ws["C13"], ws["D13"], ws["E13"] = "Nguyễn Nhật Huy", "524H0052", "QA, Unit Testing, Web Invoices & Docs", 0.33
 
     # 2. Tasks & Division sheet
     ws = wb["Tasks & Division"]
     task_updates = {
-        5:  ("[MSSV 1]", "[MSSV 3]", "feature/member1-web-core; feature/web-myorders-invoice", "Done", "B2B.Data/Scripts/SeedData.sql & DbInitializer.cs (15-30 rows/table)"),
-        6:  ("[MSSV 3]", "[MSSV 1]", "feature/web-myorders-invoice", "Done", "B2BDbContext.cs Fluent API FKs/Cascade/Restrict + CHECK constraints; verified by DatabaseIntegrityTests"),
+        5:  ("[MSSV 1]", "524H0052", "feature/member1-web-core; feature/web-myorders-invoice", "Done", "B2B.Data/Scripts/SeedData.sql & DbInitializer.cs (15-30 rows/table)"),
+        6:  ("524H0052", "[MSSV 1]", "feature/web-myorders-invoice", "Done", "B2BDbContext.cs Fluent API FKs/Cascade/Restrict + CHECK constraints; verified by DatabaseIntegrityTests"),
         # Rows 7-10 are Member 2 (524H0057) -> keep untouched
-        11: ("[MSSV 1]", "[MSSV 3]", "feature/member1-web-core", "Done", "AccountController.cs + AuthService.cs; screenshots/1_login_page.png & 2_admin_blocked.png"),
-        12: ("[MSSV 1]", "[MSSV 3]", "feature/member1-web-core", "Done", "OrderController.cs + OrderService.cs BeginTransactionAsync; screenshots/3-6"),
-        13: ("[MSSV 3]", None,       "feature/web-myorders-invoice", "Done", "OrderController MyOrders/Invoice + Views/Order/MyOrders.cshtml & Invoice.cshtml; screenshots/7-10"),
-        14: ("[MSSV 1]", "[MSSV 3]", "feature/member1-web-core", "Done", "Bootstrap 5.3.3 responsive layout; screenshots/responsive_desktop.png & responsive_mobile.png"),
-        15: ("[MSSV 3]", None,       "feature/unit-tests-businesslogic", "Done", "B2B.Tests (xUnit + SQLite): 16/16 tests PASSED (100%); screenshots/unit_test_results.png"),
-        16: ("[MSSV 1]", "524H0057; [MSSV 3]", "main; feature/member2-winforms", "Done", "Connection strings in B2B.Web/appsettings.json and B2B.WinForms/App.config (zero hardcoded)"),
-        17: ("[MSSV 1]", "524H0057; [MSSV 3]", "main; develop; feature/*", "Done", "GitFlow branches & incremental commits across all 3 members"),
-        18: ("[MSSV 3]", "[MSSV 1]; 524H0057", "docs/report-and-packaging", "Done", "Report.docx, Readme.txt, Workbook, SourceCode.zip (without bin/obj)"),
+        11: ("[MSSV 1]", "524H0052", "feature/member1-web-core", "Done", "AccountController.cs + AuthService.cs; screenshots/1_login_page.png & 2_admin_blocked.png"),
+        12: ("[MSSV 1]", "524H0052", "feature/member1-web-core", "Done", "OrderController.cs + OrderService.cs BeginTransactionAsync; screenshots/3-6"),
+        13: ("524H0052", None,       "feature/web-myorders-invoice", "Done", "OrderController MyOrders/Invoice + Views/Order/MyOrders.cshtml & Invoice.cshtml; screenshots/7-10"),
+        14: ("[MSSV 1]", "524H0052", "feature/member1-web-core", "Done", "Bootstrap 5.3.3 responsive layout; screenshots/responsive_desktop.png & responsive_mobile.png"),
+        15: ("524H0052", None,       "feature/unit-tests-businesslogic", "Done", "B2B.Tests (xUnit + SQLite): 16/16 tests PASSED (100%); screenshots/unit_test_results.png"),
+        16: ("[MSSV 1]", "524H0057; 524H0052", "main; feature/member2-winforms", "Done", "Connection strings in B2B.Web/appsettings.json and B2B.WinForms/App.config (zero hardcoded)"),
+        17: ("[MSSV 1]", "524H0057; 524H0052", "main; develop; feature/*", "Done", "GitFlow branches & incremental commits across all 3 members"),
+        18: ("524H0052", "[MSSV 1]; 524H0057", "docs/report-and-packaging", "Done", "Report.docx, Readme.txt, Workbook, SourceCode.zip (without bin/obj)"),
     }
     for row_idx, (resp, helper, branch, status, evidence) in task_updates.items():
         ws.cell(row_idx, 4, resp)
@@ -120,10 +120,10 @@ def update_workbook():
     ws = wb["Branches & PRs"]
     ws["C3"] = "GitFlow: main (stable), develop (integration), feature/* and docs/* per task merged via Pull Requests"
     branch_rows = [
-        (7, "feature/member1-web-core", "[MSSV 1]", "Task 2 Schema, Task 3.1 Auth, Task 3.2 Transaction Checkout, Task 3.4 Responsive UI", "https://github.com/thinhvo06/B2BWholesaleSystem/tree/feature/member1-web-core", "PR #1", "[MSSV 3]", "2026-11-13", "Merged"),
-        (8, "feature/web-myorders-invoice", "[MSSV 3]", "Task 2 Seed Data & CHECK Integrity; Task 3.3 My Orders & Printable A4 Invoice", "https://github.com/thinhvo06/B2BWholesaleSystem", "PR #3 (Ready)", "[MSSV 1]", "2026-11-18", "Ready for PR"),
-        (9, "feature/unit-tests-businesslogic", "[MSSV 3]", "Task 5.1 Automated xUnit Suite (16 tests with relational SQLite)", "https://github.com/thinhvo06/B2BWholesaleSystem", "PR #4 (Ready)", "[MSSV 1]", "2026-11-18", "Ready for PR"),
-        (10, "docs/report-and-packaging", "[MSSV 3]", "Task 6c Report.docx, Workbook, Readme.txt, Screenshots & SourceCode.zip", "https://github.com/thinhvo06/B2BWholesaleSystem", "PR #5 (Ready)", "[MSSV 1]", "2026-11-18", "Ready for PR"),
+        (7, "feature/member1-web-core", "[MSSV 1]", "Task 2 Schema, Task 3.1 Auth, Task 3.2 Transaction Checkout, Task 3.4 Responsive UI", "https://github.com/thinhvo06/B2BWholesaleSystem/tree/feature/member1-web-core", "PR #1", "524H0052", "2026-11-13", "Merged"),
+        (8, "feature/web-myorders-invoice", "524H0052", "Task 2 Seed Data & CHECK Integrity; Task 3.3 My Orders & Printable A4 Invoice", "https://github.com/thinhvo06/B2BWholesaleSystem", "PR #3 (Ready)", "[MSSV 1]", "2026-11-18", "Ready for PR"),
+        (9, "feature/unit-tests-businesslogic", "524H0052", "Task 5.1 Automated xUnit Suite (16 tests with relational SQLite)", "https://github.com/thinhvo06/B2BWholesaleSystem", "PR #4 (Ready)", "[MSSV 1]", "2026-11-18", "Ready for PR"),
+        (10, "docs/report-and-packaging", "524H0052", "Task 6c Report.docx, Workbook, Readme.txt, Screenshots & SourceCode.zip", "https://github.com/thinhvo06/B2BWholesaleSystem", "PR #5 (Ready)", "[MSSV 1]", "2026-11-18", "Ready for PR"),
     ]
     for r, bname, owner, purp, link, pr, rev, merged, status in branch_rows:
         ws.cell(r, 2, bname)
@@ -139,9 +139,9 @@ def update_workbook():
     ws = wb["Commit Log"]
     commit_rows = [
         (6, "Lab 7–Lab 9", "2026-11-13", "[MSSV 1]", "feature/member1-web-core; develop; main", 9, "PR #1 Merged into develop/main", "Solution setup, EF Core schema, Web Auth, Catalog, Cart, Transaction Checkout, E2E screenshots"),
-        (7, "Lab 9",       "2026-11-18", "[MSSV 3]", "feature/web-myorders-invoice", 2, "Ready for PR", "59e5e66 SeedData.sql & CHECK constraints; 1a7de02 Task 3.3 My Orders, Printable Invoice, OrderService/AuthService"),
-        (8, "Lab 10",      "2026-11-18", "[MSSV 3]", "feature/unit-tests-businesslogic", 1, "Ready for PR", "a3dceb0 16 meaningful xUnit tests with relational SQLite (100% Pass)"),
-        (9, "Lab 10",      "2026-11-18", "[MSSV 3]", "docs/report-and-packaging", 2, "Ready for PR", "E2E verification & screenshots, Report.docx, Team Workbook, Readme.txt, SourceCode.zip packaging"),
+        (7, "Lab 9",       "2026-11-18", "524H0052", "feature/web-myorders-invoice", 2, "Ready for PR", "59e5e66 SeedData.sql & CHECK constraints; 1a7de02 Task 3.3 My Orders, Printable Invoice, OrderService/AuthService"),
+        (8, "Lab 10",      "2026-11-18", "524H0052", "feature/unit-tests-businesslogic", 1, "Ready for PR", "a3dceb0 16 meaningful xUnit tests with relational SQLite (100% Pass)"),
+        (9, "Lab 10",      "2026-11-18", "524H0052", "docs/report-and-packaging", 2, "Ready for PR", "E2E verification & screenshots, Report.docx, Team Workbook, Readme.txt, SourceCode.zip packaging"),
     ]
     for r, wk, dt, sid, br, cnt, pr, desc in commit_rows:
         ws.cell(r, 1, wk)
@@ -185,7 +185,7 @@ def update_workbook():
     ws = wb["AI Usage Log"]
     ws.cell(8, 1, "4")
     ws.cell(8, 2, "2026-11-18")
-    ws.cell(8, 3, "[MSSV 3]")
+    ws.cell(8, 3, "524H0052")
     ws.cell(8, 4, "Antigravity AI")
     ws.cell(8, 5, "Task 2 Seed/Integrity, Task 3.3 My Orders & Printable Invoice, Task 5.1 Unit Tests, Docs")
     ws.cell(8, 6, "Implement Member 3 remaining tasks: unify SeedData.sql & CHECK constraints, build My Orders & A4 Printable Invoice with IDOR security, write xUnit relational SQLite tests, update Report.docx/Workbook/Readme/SourceCode.zip.")
@@ -259,7 +259,7 @@ def update_report():
                 "Group: Group 14\n"
                 "1. [MSSV 1] : Võ Nguyễn Phúc Thịnh (Leader / Member 1 - 34%)\n"
                 "2. 524H0057 : Ôn Gia Khiêm (Member 2 - 33%)\n"
-                "3. [MSSV 3] : Nguyễn Nhật Huy (Member 3 - 33%)"
+                "3. 524H0052 : Nguyễn Nhật Huy (Member 3 - 33%)"
             )
         if "Nguyễn Nhật huy" in p.text:
             p.text = p.text.replace("Nguyễn Nhật huy", "Nguyễn Nhật Huy")
@@ -268,18 +268,18 @@ def update_report():
     t_dol = doc.tables[1]
     clear_table_data_rows(t_dol, keep_rows=1)
     dol_rows = [
-        ("2a",  "Database schema & Seed Data (15-30 realistic rows/table)", "Võ Nguyễn Phúc Thịnh ([MSSV 1]) & Nguyễn Nhật Huy ([MSSV 3])", "feature/member1-web-core; feature/web-myorders-invoice", "Done"),
-        ("2b",  "Database referential integrity (FKs, Cascade/Restrict, CHECK)", "Nguyễn Nhật Huy ([MSSV 3])", "feature/web-myorders-invoice", "Done"),
+        ("2a",  "Database schema & Seed Data (15-30 realistic rows/table)", "Võ Nguyễn Phúc Thịnh ([MSSV 1]) & Nguyễn Nhật Huy (524H0052)", "feature/member1-web-core; feature/web-myorders-invoice", "Done"),
+        ("2b",  "Database referential integrity (FKs, Cascade/Restrict, CHECK)", "Nguyễn Nhật Huy (524H0052)", "feature/web-myorders-invoice", "Done"),
         ("1.1", "WinForms secure Admin login (Role Admin + 5-attempt lockout)", "Ôn Gia Khiêm (524H0057)", "feature/member2-winforms", "Done"),
         ("1.2", "WinForms Item & Agent CRUD, Stock-In, Order Management", "Ôn Gia Khiêm (524H0057)", "feature/member2-winforms", "Done"),
         ("1.3", "WinForms A4 Shipping Manifest report (Preview / Print / PDF)", "Ôn Gia Khiêm (524H0057)", "feature/member2-winforms", "Done"),
         ("1.4", "WinForms Dashboard (Best-selling, Low-stock < 10, Revenue)", "Ôn Gia Khiêm (524H0057)", "feature/member2-winforms", "Done"),
         ("3.1", "Web Portal Agent Login (Role Agent only, Admin blocked)", "Võ Nguyễn Phúc Thịnh ([MSSV 1])", "feature/member1-web-core", "Done"),
         ("3.2", "Catalog, Bulk Cart & Master-Detail Transaction Checkout", "Võ Nguyễn Phúc Thịnh ([MSSV 1])", "feature/member1-web-core", "Done"),
-        ("3.3", "My Orders history (IDOR protected) & Printable A4 Invoice", "Nguyễn Nhật Huy ([MSSV 3])", "feature/web-myorders-invoice", "Done"),
+        ("3.3", "My Orders history (IDOR protected) & Printable A4 Invoice", "Nguyễn Nhật Huy (524H0052)", "feature/web-myorders-invoice", "Done"),
         ("3.4", "Modern Responsive UI (Bootstrap 5.3.3 desktop & mobile)", "Võ Nguyễn Phúc Thịnh ([MSSV 1])", "feature/member1-web-core", "Done"),
-        ("5.1", "Unit Test Project (xUnit + SQLite, 16 meaningful tests)", "Nguyễn Nhật Huy ([MSSV 3])", "feature/unit-tests-businesslogic", "Done"),
-        ("6",   "Secure Config, GitFlow PRs, Report.docx, Readme & Zip", "All Members (Docs & Packaging: Nguyễn Nhật Huy [MSSV 3])", "docs/report-and-packaging", "Done"),
+        ("5.1", "Unit Test Project (xUnit + SQLite, 16 meaningful tests)", "Nguyễn Nhật Huy (524H0052)", "feature/unit-tests-businesslogic", "Done"),
+        ("6",   "Secure Config, GitFlow PRs, Report.docx, Readme & Zip", "All Members (Docs & Packaging: Nguyễn Nhật Huy 524H0052)", "docs/report-and-packaging", "Done"),
     ]
     for row_vals in dol_rows:
         add_table_row(t_dol, row_vals)
@@ -289,7 +289,7 @@ def update_report():
     clear_table_data_rows(t_team, keep_rows=1)
     add_table_row(t_team, ("1", "Võ Nguyễn Phúc Thịnh", "[MSSV 1]", "Leader / Fullstack Web & Shared Core DB (34%)"))
     add_table_row(t_team, ("2", "Ôn Gia Khiêm", "524H0057", "Desktop WinForms Back-Office & Reporting (33%)"))
-    add_table_row(t_team, ("3", "Nguyễn Nhật Huy", "[MSSV 3]", "Seed/Integrity, Web Invoices, Unit Tests & Docs (33%)"))
+    add_table_row(t_team, ("3", "Nguyễn Nhật Huy", "524H0052", "Seed/Integrity, Web Invoices, Unit Tests & Docs (33%)"))
 
     # 4. Update Table 5: Seed Data counts (exact unified counts!)
     t_seed = doc.tables[5]
@@ -424,7 +424,7 @@ def update_report():
     clear_table_data_rows(t_contrib, keep_rows=1)
     add_table_row(t_contrib, ("Võ Nguyễn Phúc Thịnh (Member 1)", "[MSSV 1]", "Task 2a (Shared DB Schema), Task 3.1 (Agent Login), Task 3.2 (Catalog, Cart, Transaction Checkout), Task 3.4 (Bootstrap 5 UI), Repo Setup", "34%"))
     add_table_row(t_contrib, ("Ôn Gia Khiêm (Member 2)", "524H0057", "Task 1.1 (WinForms Admin Login & App.config), Task 1.2 (Item/Agent CRUD & Order Management), Task 1.3 (Shipping Manifest), Task 1.4 (Dashboard)", "33%"))
-    add_table_row(t_contrib, ("Nguyễn Nhật Huy (Member 3)", "[MSSV 3]", "Task 2a/2b (Unified Seed Data 15-30 rows & CHECK/FK Integrity), Task 3.3 (My Orders, IDOR Security & A4 Printable Invoice), Task 5.1 (16 Relational xUnit Tests), Report.docx, Workbook, Readme.txt & SourceCode.zip", "33%"))
+    add_table_row(t_contrib, ("Nguyễn Nhật Huy (Member 3)", "524H0052", "Task 2a/2b (Unified Seed Data 15-30 rows & CHECK/FK Integrity), Task 3.3 (My Orders, IDOR Security & A4 Printable Invoice), Task 5.1 (16 Relational xUnit Tests), Report.docx, Workbook, Readme.txt & SourceCode.zip", "33%"))
     add_table_row(t_contrib, ("Total", "", "All Assignment 2 Rubric Criteria Covered (100/100 Target)", "100%"))
 
     # 10. Update Appendix A: Readme.txt

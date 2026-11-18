@@ -19,7 +19,7 @@ Instructor: Ky-Trung Pham (tg_phamthaikytrung@tdtu.edu.vn)
 No. | Student ID | Full Name              | Assigned Role                               | % Contribution
 1   | [MSSV 1]   | Võ Nguyễn Phúc Thịnh   | Leader / Member 1 (Web Core & Shared DB)    | 34%
 2   | 524H0057   | Ôn Gia Khiêm           | Member 2 (WinForms Back-Office & Reporting) | 33%
-3   | [MSSV 3]   | Nguyễn Nhật Huy        | Member 3 (Seed/Integrity, Invoices, QA/Doc) | 33%
+3   | 524H0052   | Nguyễn Nhật Huy        | Member 3 (Seed/Integrity, Invoices, QA/Doc) | 33%
 Total Contribution: 100%
 
 3. DATABASE CONFIGURATION & ENVIRONMENT SETUP

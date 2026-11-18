@@ -28,7 +28,11 @@ public class B2BDbContext : DbContext
         // 1. Item table configuration
         modelBuilder.Entity<Item>(entity =>
         {
-            entity.ToTable("Item");
+            entity.ToTable("Item", t =>
+            {
+                t.HasCheckConstraint("CK_Item_StockQuantity", "StockQuantity >= 0");
+                t.HasCheckConstraint("CK_Item_Price", "Price >= 0");
+            });
             entity.HasKey(e => e.ItemID);
             entity.Property(e => e.ItemName).IsRequired().HasMaxLength(200);
             entity.Property(e => e.Size).HasMaxLength(50);
@@ -64,7 +68,11 @@ public class B2BDbContext : DbContext
         // 4. OrderDetail table configuration
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.ToTable("OrderDetail");
+            entity.ToTable("OrderDetail", t =>
+            {
+                t.HasCheckConstraint("CK_OrderDetail_Quantity", "Quantity > 0");
+                t.HasCheckConstraint("CK_OrderDetail_UnitAmount", "UnitAmount >= 0");
+            });
             entity.HasKey(e => e.ID);
             entity.Property(e => e.Quantity).IsRequired();
             entity.Property(e => e.UnitAmount).HasColumnType("decimal(18, 2)");
@@ -85,7 +93,10 @@ public class B2BDbContext : DbContext
         // 5. Users table configuration
         modelBuilder.Entity<Users>(entity =>
         {
-            entity.ToTable("Users");
+            entity.ToTable("Users", t =>
+            {
+                t.HasCheckConstraint("CK_Users_Role", "Role IN ('Admin', 'Agent')");
+            });
             entity.HasKey(e => e.UserID);
             entity.Property(e => e.UserName).IsRequired().HasMaxLength(100);
             entity.Property(e => e.email).IsRequired().HasMaxLength(150);

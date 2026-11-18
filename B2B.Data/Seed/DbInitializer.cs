@@ -33,7 +33,9 @@ public static class DbInitializer
                 new Item { ItemName = "Loa hội nghị Bluetooth Jabra Speak 710", Size = "Portable", Price = 5890000m, StockQuantity = 50 },
                 new Item { ItemName = "Pin sạc dự phòng Shargeek Storm 2 25600mAh", Size = "25600mAh", Price = 4200000m, StockQuantity = 75 },
                 new Item { ItemName = "Thẻ nhớ SanDisk Extreme Pro 256GB MicroSD", Size = "256GB", Price = 890000m, StockQuantity = 300 },
-                new Item { ItemName = "Bộ lưu điện UPS APC Back-UPS Pro 1500VA", Size = "1500VA", Price = 6800000m, StockQuantity = 25 }
+                new Item { ItemName = "Bộ lưu điện UPS APC Back-UPS Pro 1500VA", Size = "1500VA", Price = 6800000m, StockQuantity = 25 },
+                new Item { ItemName = "Switch mạng doanh nghiệp Cisco Catalyst 24-Port", Size = "24-Port", Price = 14900000m, StockQuantity = 8 },
+                new Item { ItemName = "Thiết bị lưu trữ NAS Synology DS923+ 4-Bay", Size = "4-Bay", Price = 16500000m, StockQuantity = 6 }
             };
 
             await context.Item.AddRangeAsync(items);

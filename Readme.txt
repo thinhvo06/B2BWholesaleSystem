@@ -13,7 +13,7 @@ Instructor: Ky-Trung Pham (tg_phamthaikytrung@tdtu.edu.vn)
   * feature/web-myorders-invoice (Member 3: Seed Data & Integrity Constraints, Task 3.3 My Orders & Printable Invoice)
   * feature/unit-tests-businesslogic (Member 3: Task 5.1 Automated xUnit Test Suite - 16 Tests)
   * docs/report-and-packaging (Member 3: Report.docx, Workbook, Readme.txt, SourceCode.zip packaging)
-- Video Demo Link (Optional/YouTube/Google Drive): [YOUR_VIDEO_DEMO_LINK]
+- Video Demo Link: https://youtu.be/PafoyZpm9g0
 
 2. TEAM MEMBERS & PERCENTAGE OF CONTRIBUTION
 No. | Student ID | Full Name              | Assigned Role                               | % Contribution
